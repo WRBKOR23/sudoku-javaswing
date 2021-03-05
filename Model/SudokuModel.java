@@ -10,10 +10,12 @@ public class SudokuModel
     private static final String FILE_PATH_EASY = "D:/Sudoku/src/Puzzles/easy_mode.txt";
     private static final String FILE_PATH_NORMAL = "D:/Sudoku/src/Puzzles/normal_mode.txt";
     private static final String FILE_PATH_HARD = "D:/Sudoku/src/Puzzles/hard_mode.txt";
+    private static final String FILE_PATH_CHALLENGE = "D:/Sudoku/src/Puzzles/challenge_mode.txt";
 
     private ArrayList<String> easyList;
     private ArrayList<String> normalList;
     private ArrayList<String> hardList;
+    private ArrayList<String> challengeList;
 
     private final char[][] pzArr = new char[9][9];
 
@@ -45,6 +47,7 @@ public class SudokuModel
         easyList = getAllPuzzles(FILE_PATH_EASY);
         normalList = getAllPuzzles(FILE_PATH_NORMAL);
         hardList = getAllPuzzles(FILE_PATH_HARD);
+        challengeList = getAllPuzzles(FILE_PATH_CHALLENGE);
     }
 
     private ArrayList<String> getAllPuzzles(String path)
@@ -86,6 +89,7 @@ public class SudokuModel
                 input = easyList.get(0);
                 easyList.remove(0);
             }
+
             case "normal" -> {
                 if (normalList.size() == 0)
                 {
@@ -95,6 +99,7 @@ public class SudokuModel
                 input = normalList.get(0);
                 normalList.remove(0);
             }
+
             case "hard" -> {
                 if (hardList.size() == 0)
                 {
@@ -103,6 +108,15 @@ public class SudokuModel
 
                 input = hardList.get(0);
                 hardList.remove(0);
+            }
+            case "challenge" -> {
+                if (challengeList.size() == 0)
+                {
+                    return false;
+                }
+
+                input = challengeList.get(0);
+                challengeList.remove(0);
             }
         }
 
