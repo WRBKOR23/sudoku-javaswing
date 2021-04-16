@@ -1,34 +1,32 @@
 package model;
 
-import controller.TimeControl;
+import controller.ThreadControl;
 
 import javax.swing.*;
 import java.util.concurrent.TimeUnit;
 
-public class Time extends Thread
+public class TimeThread extends Thread
 {
-    private final TimeControl timeControl;
-    private final String[] flag;
-    private volatile boolean forceStop = false;
+    private final ThreadControl threadControl;
+    private volatile boolean forceStop = true;
 
     private long time;
     private final JLabel clockLabel;
 
-    public Time(String[] flag, TimeControl timeControl)
+    public TimeThread(ThreadControl threadControl)
     {
-        this.timeControl = timeControl;
-        clockLabel = new JLabel("00:00:00", SwingConstants.CENTER);
-        this.flag = flag;
-    }
-
-    public boolean isForceStop()
-    {
-        return forceStop;
+        this.threadControl = threadControl;
+        clockLabel         = new JLabel("00:00:00", SwingConstants.CENTER);
     }
 
     public void setForceStop(boolean forceStop)
     {
         this.forceStop = forceStop;
+    }
+
+    public String getTime()
+    {
+        return convertToTime(time);
     }
 
     @Override
@@ -38,13 +36,12 @@ public class Time extends Thread
         {
             try
             {
-                if (flag[0].equals("pause"))
+                if (forceStop)
                 {
-                    timeControl.hold();
+                    threadControl.hold();
                 }
 
                 clockLabel.setText(convertToTime(time));
-                flag[1] = clockLabel.getText();
 
                 time++;
                 TimeUnit.MILLISECONDS.sleep(1000);
@@ -58,7 +55,7 @@ public class Time extends Thread
 
     public void wake()
     {
-        timeControl.wake();
+        threadControl.wake();
     }
 
     public String convertToTime(long t)

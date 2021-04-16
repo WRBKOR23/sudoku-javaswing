@@ -1,13 +1,13 @@
-package model;
+package gui;
 
 import javax.swing.*;
 import java.util.Vector;
 
-public class CustomTableModel extends JTable
+public class CustomTable extends JTable
 {
     private final Vector<Vector<Object>> v;
 
-    public CustomTableModel(Vector<Vector<Object>> v, Vector<Object> v1)
+    public CustomTable(Vector<Vector<Object>> v, Vector<Object> v1)
     {
         super(v, v1);
         this.v = v;

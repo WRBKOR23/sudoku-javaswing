@@ -5,9 +5,7 @@ import custom_event.CustomActionListener;
 import custom_event.CustomKeyListener;
 import custom_event.CustomMouseListener;
 import custom_event.CustomWindowListener;
-import model.Time;
 import controller.TimeControl;
-import model.Music;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,16 +13,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 public class MenuGame extends JPanel
 {
 
     private final DisplayPuzzle display;
 
-    // thread
-    private final Time clock; // time
-    private final Music music; // time
+    // control thread
+    private final TimeControl timeControl;
+    private final MusicControl musicControl;
+
+    // player name field
+    private JTextField playerNameField;
 
     // feature button
     private JButton hintBt;
@@ -43,50 +43,50 @@ public class MenuGame extends JPanel
     private JButton hardModeBt;
     private JButton challengeModeBt;
 
+    // time label
+    JLabel clockLabel;
+
     // even listener
     private GameControl gameControl;
     private ChangeAchievementBtStatus changeAchievementBtStatus;
     private MousePosition mousePosition;
     private GetTextFromField getTextFromField;
 
-    public MenuGame(DisplayPuzzle display)
+    public MenuGame(DisplayPuzzle display, TimeControl timeControl, MusicControl musicControl)
     {
         this.display = display;
 
-        TimeControl timeControl = new TimeControl();
-        MusicControl musicControl = new MusicControl();
+        this.timeControl  = timeControl;
+        this.musicControl = musicControl;
 
-        clock = new Time(display.getFlag(), timeControl);
-        clock.start();
-        music = new Music(musicControl);
-        music.start();
-
-        initGUI();
+        waitScreen();
     }
 
     private void generateEvent()
     {
-        gameControl = new GameControl();
+        gameControl               = new GameControl();
         changeAchievementBtStatus = new ChangeAchievementBtStatus();
-        mousePosition = new MousePosition();
-        getTextFromField = new GetTextFromField();
+        mousePosition             = new MousePosition();
+        getTextFromField          = new GetTextFromField();
     }
 
     private void generateComponents()
     {
-        hintBt = createFeatureButton("hint");
-        checkBt = createFeatureButton("check");
-        musicBt = createFeatureButton("music");
-        introBt = createFeatureButton("introductions");
+        hintBt   = createFeatureButton("hint");
+        checkBt  = createFeatureButton("check");
+        musicBt  = createFeatureButton("music");
+        introBt  = createFeatureButton("introductions");
         achievBt = createFeatureButton("achievement");
 
         resumeBt = createControlButton("resume");
-        pauseBt = createControlButton("pause");
+        pauseBt  = createControlButton("pause");
 
-        easyModeBt = createModeButton("Easy");
-        normalModeBt = createModeButton("Normal");
-        hardModeBt = createModeButton("Hard");
+        easyModeBt      = createModeButton("Easy");
+        normalModeBt    = createModeButton("Normal");
+        hardModeBt      = createModeButton("Hard");
         challengeModeBt = createModeButton("Challenge");
+
+        clockLabel = createClockLabel();
     }
 
     public void waitScreen()
@@ -96,7 +96,7 @@ public class MenuGame extends JPanel
         JLabel userNameLabel = new JLabel("Nickname: ");
         userNameLabel.setFont(new Font("arial", Font.BOLD, 15));
 
-        JTextField playerNameField = new JTextField();
+        playerNameField = new JTextField();
         playerNameField.setPreferredSize(new Dimension(200, 30));
         playerNameField.setFont(new Font("arial", Font.BOLD, 15));
 
@@ -107,7 +107,7 @@ public class MenuGame extends JPanel
         playerNamePanel.add(userNameLabel);
         playerNamePanel.add(playerNameField);
 
-        JButton confirmBt = new JButton("START");
+        JButton confirmBt = new JButton("CONFIRM");
         confirmBt.setPreferredSize(new Dimension(100, 40));
         confirmBt.setActionCommand("start");
         confirmBt.addActionListener(gameControl);
@@ -183,27 +183,35 @@ public class MenuGame extends JPanel
     {
         JPanel timeArea = new JPanel();
         timeArea.setPreferredSize(new Dimension(300, 150));
-
-        JLabel timeTitleLabel = new JLabel("TIME", SwingConstants.CENTER);
-        timeTitleLabel.setPreferredSize(new Dimension(300, 70));
-        timeTitleLabel.setFont(new Font("arial", Font.BOLD, 20));
-
-        JLabel clockLabel = clock.getClockLabel();
-        clockLabel.setPreferredSize(new Dimension(300, 50));
-        //        clockLabel.setHorizontalAlignment(JLabel.CENTER);
-        clockLabel.setFont(new Font("arial", Font.BOLD, 40));
-
-        timeArea.add(timeTitleLabel);
-        timeArea.add(clockLabel);
-
         timeArea.setOpaque(true);
         timeArea.setBackground(Color.blue);
+
+        timeArea.add(createTimeTitleLabel());
+        timeArea.add(clockLabel);
 
         return timeArea;
     }
 
-    // -----------------------------------------------------------------------
+    private JLabel createTimeTitleLabel()
+    {
+        JLabel timeTitleLabel = new JLabel("TIME", SwingConstants.CENTER);
+        timeTitleLabel.setPreferredSize(new Dimension(300, 70));
+        timeTitleLabel.setFont(new Font("arial", Font.BOLD, 20));
 
+        return timeTitleLabel;
+    }
+
+    private JLabel createClockLabel()
+    {
+        JLabel clockLabel = timeControl.getTimeThread().getClockLabel();
+        clockLabel.setPreferredSize(new Dimension(300, 50));
+        //        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        clockLabel.setFont(new Font("arial", Font.BOLD, 40));
+
+        return clockLabel;
+    }
+
+    // -----------------------------------------------------------------------
 
 
     // -------- CONTROL AREA ------------------------------------------
@@ -266,9 +274,9 @@ public class MenuGame extends JPanel
     {
         JButton button = new JButton(mode);
         button.setPreferredSize(new Dimension(130, 50));
-        button.setFont(button.getFont().deriveFont(18.0f));
+        button.setFont(new Font("arial", Font.BOLD, 18));
 
-        button.setActionCommand(mode.toLowerCase(Locale.ROOT));
+        button.setActionCommand(mode.toLowerCase());
         button.addActionListener(gameControl);
         button.addMouseListener(mousePosition);
 
@@ -296,6 +304,11 @@ public class MenuGame extends JPanel
         return img;
     }
 
+    private void changeMusicButtonIcon(String buttonName)
+    {
+        Icon icon = new ImageIcon((getIconButton(buttonName, 40)));
+        musicBt.setIcon(icon);
+    }
 
     class GameControl extends CustomActionListener
     {
@@ -320,7 +333,6 @@ public class MenuGame extends JPanel
                     }
 
                     control(e.getActionCommand());
-
                 }
 
                 case "hint", "check", "introductions", "achievement" -> {
@@ -331,19 +343,21 @@ public class MenuGame extends JPanel
 
         private void start()
         {
-            if (display.getAchievementModel().getPlayerName().equals(""))
+            String playerName = playerNameField.getText();
+            if (playerName.equals(""))
             {
                 return;
             }
 
+            display.getAchievementModel().setPlayerName(playerName);
             initGUI();
         }
 
         private void createNewGame(String mode)
         {
             int choice = JOptionPane.showOptionDialog(null,
-                    "Bạn có muốn chơi mới không?",
-                    "",
+                    "Are you sure want to start a new game?",
+                    "Start new game",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null, null, null);
@@ -354,15 +368,14 @@ public class MenuGame extends JPanel
                 {
                     JOptionPane.showMessageDialog(null,
                             "Bạn đã chơi hết các câu đố ở chế độ này\n" +
-                                    "Vui lòng chọn chế độ khác để tiếp tục chơi!",
+                            "Vui lòng chọn chế độ khác để tiếp tục chơi!",
                             "",
                             JOptionPane.INFORMATION_MESSAGE);
 
                     return;
                 }
 
-                clock.setTime(0);
-                clock.wake();
+                timeControl.startOver();
 
                 display.getAchievementModel().setMode(mode);
                 display.resetInfo();
@@ -376,17 +389,17 @@ public class MenuGame extends JPanel
             switch (actionCommand)
             {
                 case "resume" -> {
-                    display.setFlag(actionCommand);
-                    display.switchScreen(false);
+                    timeControl.resume();
 
-                    clock.wake();
+                    display.switchScreen(false);
 
                     hintBt.addActionListener(gameControl);
                     checkBt.addActionListener(gameControl);
                 }
 
                 case "pause" -> {
-                    display.setFlag(actionCommand);
+                    timeControl.forceStop();
+
                     display.switchScreen(true);
 
                     hintBt.removeActionListener(gameControl);
@@ -462,19 +475,20 @@ public class MenuGame extends JPanel
             {
                 if (e.getButton() == 1)
                 {
-                    if (music.isForceStop())
+                    if (musicControl.getMusicThread().isForceStop())
                     {
-                        music.setForceStop(false);
-                        music.wake();
+                        changeMusicButtonIcon("music");
+                        musicControl.resume();
                     }
                     else
                     {
-                        music.setForceStop(true);
+                        changeMusicButtonIcon("musicoff");
+                        musicControl.stop();
                     }
                 }
                 else if (e.getButton() == 3)
                 {
-                    music.setForceSkip(true);
+                    musicControl.skip();
                 }
             }
         }

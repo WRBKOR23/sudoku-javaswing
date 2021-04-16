@@ -1,19 +1,20 @@
 package model;
 
-import controller.MusicControl;
+import controller.ThreadControl;
+
 import jaco.mp3.player.MP3Player;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-public class Music extends Thread
+public class MusicThread extends Thread
 {
-    private final MusicControl musicControl;
+    private final ThreadControl threadControl;
     private volatile boolean forceStop = false;
     private volatile boolean forceSkip = false;
 
-    public Music(MusicControl musicControl)
+    public MusicThread(ThreadControl threadControl)
     {
-        this.musicControl = musicControl;
+        this.threadControl = threadControl;
     }
 
     public boolean isForceStop()
@@ -24,11 +25,6 @@ public class Music extends Thread
     public void setForceStop(boolean forceStop)
     {
         this.forceStop = forceStop;
-    }
-
-    public boolean isForceSkip()
-    {
-        return forceSkip;
     }
 
     public void setForceSkip(boolean forceSkip)
@@ -42,7 +38,7 @@ public class Music extends Thread
         MP3Player mp3 = new MP3Player();
         for (int i = 1; i < 13; i++)
         {
-            mp3.addToPlayList(new File("D:/Sudoku/src/music/"+i+".mp3"));
+            mp3.addToPlayList(new File("D:/Sudoku/src/music/" + i + ".mp3"));
         }
         mp3.setShuffle(true);
         mp3.play();
@@ -54,11 +50,11 @@ public class Music extends Thread
                 if (forceStop)
                 {
                     mp3.pause();
-                    musicControl.hold();
+                    threadControl.hold();
                 }
 
                 if ((mp3.isStopped() || mp3.isPaused()) &&
-                        !forceStop)
+                    !forceStop)
                 {
                     mp3.play();
                 }
@@ -69,7 +65,7 @@ public class Music extends Thread
                     forceSkip = false;
                 }
 
-                TimeUnit.MILLISECONDS.sleep(500);
+                TimeUnit.MILLISECONDS.sleep(200);
 
             } catch (InterruptedException e)
             {
@@ -80,6 +76,6 @@ public class Music extends Thread
 
     public void wake()
     {
-        musicControl.wake();
+        threadControl.wake();
     }
 }

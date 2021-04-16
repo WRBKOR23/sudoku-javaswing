@@ -1,7 +1,6 @@
 package gui;
 
 import controller.AchievementController;
-import model.CustomTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -23,6 +22,7 @@ public class DisplayAchievementTable extends JFrame
         add(scrollPane, BorderLayout.CENTER);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         setSize(800, 500);
         setVisible(true);
     }
@@ -57,8 +57,10 @@ public class DisplayAchievementTable extends JFrame
         title.add("Checks");
         title.add("Time");
 
-        try {
-            while (resultSet.next()) {
+        try
+        {
+            while (resultSet.next())
+            {
                 Vector<Object> data = new Vector<>();
                 data.add(resultSet.getString(1));
                 data.add(resultSet.getString(2));
@@ -68,7 +70,9 @@ public class DisplayAchievementTable extends JFrame
 
                 row.add(data);
             }
-        } catch (SQLException ex) {
+
+        } catch (SQLException ex)
+        {
             ex.printStackTrace();
         }
         return fillData(row, title);
@@ -76,7 +80,7 @@ public class DisplayAchievementTable extends JFrame
 
     private JTable fillData(Vector<Vector<Object>> row, Vector<Object> title)
     {
-        CustomTableModel table = new CustomTableModel(row, title);
+        CustomTable table = new CustomTable(row, title);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);

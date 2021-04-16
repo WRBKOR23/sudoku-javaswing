@@ -21,7 +21,12 @@ public class MainFrame extends JFrame
     {
         setTitle("Sudoku");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+//        Point newLocation = new Point(middle.x - (this.getWidth() / 2),
+//                middle.y - (this.getHeight() / 2));
+//        setLocation(newLocation);
+        setLocation(150, 150);
         add(gameScreen, BorderLayout.CENTER);
         add(menuScreen, BorderLayout.EAST);
 

@@ -7,20 +7,20 @@ public class AchievementModel
 
     public AchievementModel()
     {
-        this.playerName = "";
-        this.mode = "";
-        this.countHints = 0;
+        this.playerName  = "";
+        this.mode        = "";
+        this.countHints  = 0;
         this.countChecks = 0;
-        this.time = "";
+        this.time        = "";
     }
 
     public AchievementModel(String playerName, String mode, int countHints, int countChecks, String time)
     {
-        this.playerName = playerName;
-        this.mode = mode;
-        this.countHints = countHints;
+        this.playerName  = playerName;
+        this.mode        = mode;
+        this.countHints  = countHints;
         this.countChecks = countChecks;
-        this.time = time;
+        this.time        = time;
     }
 
     public String getPlayerName()
@@ -87,11 +87,11 @@ public class AchievementModel
     public String toString()
     {
         return "AchievementModel{" +
-                "playerName='" + playerName + '\'' +
-                ", nameMode='" + mode + '\'' +
-                ", countHints='" + countHints + '\'' +
-                ", countChecks='" + countChecks + '\'' +
-                ", time=" + time +
-                '}';
+               "playerName='" + playerName + '\'' +
+               ", nameMode='" + mode + '\'' +
+               ", countHints='" + countHints + '\'' +
+               ", countChecks='" + countChecks + '\'' +
+               ", time=" + time +
+               '}';
     }
 }

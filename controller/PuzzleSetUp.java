@@ -44,9 +44,9 @@ public class PuzzleSetUp
 
     private void setUpPuzzles()
     {
-        easyList = getAllPuzzles(FILE_PATH_EASY);
-        normalList = getAllPuzzles(FILE_PATH_NORMAL);
-        hardList = getAllPuzzles(FILE_PATH_HARD);
+        easyList      = getAllPuzzles(FILE_PATH_EASY);
+        normalList    = getAllPuzzles(FILE_PATH_NORMAL);
+        hardList      = getAllPuzzles(FILE_PATH_HARD);
         challengeList = getAllPuzzles(FILE_PATH_CHALLENGE);
     }
 

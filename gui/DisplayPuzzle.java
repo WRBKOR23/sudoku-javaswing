@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import controller.AchievementController;
+import controller.TimeControl;
 import custom_event.CustomFocusListener;
 import custom_event.CustomKeyListener;
 import model.AchievementModel;
@@ -18,23 +19,24 @@ public class DisplayPuzzle extends JPanel
     private final JPanel waitScreen;
 
     private final PuzzleSetUp puzzleSetUp;
+    private final TimeControl timeControl;
 
     private final ArrayList<JTextField> textFieldList;
     private final AchievementModel achievementModel;
 
-    private final String[] flag = new String[]{"pause", ""};
     private boolean flagStart = false;
 
     private int currPos;
 
-    public DisplayPuzzle(PuzzleSetUp puzzleSetUp, ArrayList<JTextField> textFieldList)
+    public DisplayPuzzle(PuzzleSetUp puzzleSetUp, ArrayList<JTextField> textFieldList, TimeControl timeControl)
     {
         achievementModel = new AchievementModel();
-        this.gameScreen = new JPanel();
-        this.waitScreen = new JPanel();
+        this.gameScreen  = new JPanel();
+        this.waitScreen  = new JPanel();
 
-        this.puzzleSetUp = puzzleSetUp;
+        this.puzzleSetUp   = puzzleSetUp;
         this.textFieldList = textFieldList;
+        this.timeControl   = timeControl;
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
         setBackground(Color.red);
@@ -47,11 +49,6 @@ public class DisplayPuzzle extends JPanel
         return achievementModel;
     }
 
-    public String[] getFlag()
-    {
-        return flag;
-    }
-
     private void setCurrPos(int i)
     {
         currPos = i;
@@ -60,17 +57,6 @@ public class DisplayPuzzle extends JPanel
     public void resetCurrPos()
     {
         currPos = -1;
-    }
-
-    public void setFlag(String num)
-    {
-        flag[0] = num;
-    }
-
-    public void resetInfo()
-    {
-        achievementModel.setCountHints(0);
-        achievementModel.setCountChecks(0);
     }
 
     public boolean isFlagStart()
@@ -83,40 +69,11 @@ public class DisplayPuzzle extends JPanel
         this.flagStart = flagStart;
     }
 
-    /* ------- FEATURE ------------------------------------------------------------*/
-
-    public void hint()
+    public void resetInfo()
     {
-        if (currPos == -1)
-        {
-            System.out.println("Please choose a position!");
-            return;
-        }
-
-        char tempVal = puzzleSetUp.getNodeList().get(currPos).getAnswer();
-        puzzleSetUp.getNodeList().get(currPos).setVal(tempVal);
-        textFieldList.get(currPos).setText(String.valueOf(tempVal));
-
-        achievementModel.increaseCountHints(1);
-
-        finishPuzzle();
+        achievementModel.setCountHints(0);
+        achievementModel.setCountChecks(0);
     }
-
-    public void check()
-    {
-        ArrayList<NodeModel> nodeList = puzzleSetUp.getNodeList();
-        for (int i = 0; i < nodeList.size(); i++)
-        {
-            if (nodeList.get(i).getVal() != nodeList.get(i).getAnswer())
-            {
-                textFieldList.get(i).setForeground(Color.red);
-            }
-        }
-
-        achievementModel.increaseCountChecks(1);
-    }
-
-    /* -------------------------------------------------------------------------------*/
 
 
     // --------------- GENERATE ----------------------------------------------
@@ -165,7 +122,6 @@ public class DisplayPuzzle extends JPanel
 
     public void initGUI()
     {
-        setFlag("resume");
         resetCurrPos();
         resetJTextFields();
         setStatusJTextFields(true);
@@ -206,7 +162,7 @@ public class DisplayPuzzle extends JPanel
     {
         textFieldList.get(i).setPreferredSize(new Dimension(70, 70));
         textFieldList.get(i).setHorizontalAlignment(JTextField.CENTER);
-        textFieldList.get(i).setFont(textFieldList.get(i).getFont().deriveFont(40.0f));
+        textFieldList.get(i).setFont(new Font("arial", Font.BOLD, 40));
         textFieldList.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
 
         textFieldList.get(i).addKeyListener(new MyKeyListener(i));
@@ -221,7 +177,7 @@ public class DisplayPuzzle extends JPanel
 
         label.setPreferredSize(new Dimension(70, 70));
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(label.getFont().deriveFont(40.0f));
+        label.setFont(new Font("arial", Font.BOLD, 40));
 
         label.setOpaque(true);
         label.setBackground(Color.blue);
@@ -230,6 +186,42 @@ public class DisplayPuzzle extends JPanel
         return label;
     }
     // ----------------------------------------------------------------------------
+
+
+    /* ------- FEATURE ------------------------------------------------------------*/
+
+    public void hint()
+    {
+        if (currPos == -1)
+        {
+            System.out.println("Please choose a position!");
+            return;
+        }
+
+        char tempVal = puzzleSetUp.getNodeList().get(currPos).getAnswer();
+        puzzleSetUp.getNodeList().get(currPos).setVal(tempVal);
+        textFieldList.get(currPos).setText(String.valueOf(tempVal));
+
+        achievementModel.increaseCountHints(1);
+
+        finishPuzzle();
+    }
+
+    public void check()
+    {
+        ArrayList<NodeModel> nodeList = puzzleSetUp.getNodeList();
+        for (int i = 0; i < nodeList.size(); i++)
+        {
+            if (nodeList.get(i).getVal() != nodeList.get(i).getAnswer())
+            {
+                textFieldList.get(i).setForeground(Color.red);
+            }
+        }
+
+        achievementModel.increaseCountChecks(1);
+    }
+
+    /* -------------------------------------------------------------------------------*/
 
 
     // ------- MODIFY JTEXTFIELDS --------------------------------------------
@@ -271,31 +263,32 @@ public class DisplayPuzzle extends JPanel
 
     private void finishPuzzle()
     {
-        if (flag[0].equals("pause"))
+        if (!flagStart)
         {
             return;
         }
 
-
         if (checkAll())
         {
             resetCurrPos();
-            setFlag("pause");
             setStatusJTextFields(false);
             setFlagStart(false);
 
-            achievementModel.setTime(flag[1]);
+            timeControl.forceStop();
+
+            achievementModel.setTime(timeControl.getTime());
 
             AchievementController achievementController = new AchievementController();
             achievementController.insert(achievementModel);
 
             JOptionPane.showMessageDialog(null,
                     "Bạn đã hoàn thành phần chơi!\n" +
-                            "Hãy chọn game mới để tiếp tục chơi",
+                    "Hãy chọn game mới để tiếp tục chơi",
                     "",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
 
     class MyKeyListener extends CustomKeyListener
     {
@@ -351,7 +344,6 @@ public class DisplayPuzzle extends JPanel
             {
                 if (textFieldList.get(i).getText().equals("") ||
                     puzzleSetUp.getNodeList().get(i).isImmutable())
-
                 {
                     continue;
                 }

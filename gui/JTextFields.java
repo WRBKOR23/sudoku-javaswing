@@ -1,13 +1,13 @@
-package model;
+package gui;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class JTextFieldModel
+public class JTextFields
 {
-    private final ArrayList<JTextField> textFieldList= new ArrayList<>();
+    private final ArrayList<JTextField> textFieldList = new ArrayList<>();
 
-    public JTextFieldModel()
+    public JTextFields()
     {
         setUp();
     }

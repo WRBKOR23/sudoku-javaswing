@@ -1,7 +1,8 @@
 package gui;
 
+import controller.MusicControl;
 import controller.PuzzleSetUp;
-import model.*;
+import controller.TimeControl;
 
 public class TestGUI
 {
@@ -12,10 +13,12 @@ public class TestGUI
     public TestGUI()
     {
         PuzzleSetUp puzzleSetUp = new PuzzleSetUp();
-        JTextFieldModel playField = new JTextFieldModel();
+        JTextFields playField = new JTextFields();
+        TimeControl timeControl = new TimeControl();
+        MusicControl musicControl = new MusicControl();
 
-        displayPuzzle = new DisplayPuzzle(puzzleSetUp, playField.getTextFieldList());
-        menuGame = new MenuGame(displayPuzzle);
+        displayPuzzle = new DisplayPuzzle(puzzleSetUp, playField.getTextFieldList(), timeControl);
+        menuGame      = new MenuGame(displayPuzzle, timeControl, musicControl);
 
         mainFrame = new MainFrame(menuGame, displayPuzzle);
     }
