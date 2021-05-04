@@ -1,6 +1,6 @@
 package controller;
 
-import model.TimeThread;
+import thread.TimeThread;
 
 public class TimeControl
 {
@@ -11,6 +11,10 @@ public class TimeControl
     {
         this.threadControl = new ThreadControl();
         this.timeThread    = new TimeThread(threadControl);
+    }
+
+    public void start()
+    {
         this.timeThread.start();
     }
 

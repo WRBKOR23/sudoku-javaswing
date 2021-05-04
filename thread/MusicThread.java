@@ -1,16 +1,19 @@
-package model;
+package thread;
 
 import controller.ThreadControl;
 
 import jaco.mp3.player.MP3Player;
+
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class MusicThread extends Thread
 {
     private final ThreadControl threadControl;
+
     private volatile boolean forceStop = false;
     private volatile boolean forceSkip = false;
+
 
     public MusicThread(ThreadControl threadControl)
     {
@@ -67,7 +70,8 @@ public class MusicThread extends Thread
 
                 TimeUnit.MILLISECONDS.sleep(200);
 
-            } catch (InterruptedException e)
+            }
+            catch (InterruptedException e)
             {
                 e.printStackTrace();
             }

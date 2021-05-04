@@ -26,11 +26,12 @@ public class MainFrame extends JFrame
 //        Point newLocation = new Point(middle.x - (this.getWidth() / 2),
 //                middle.y - (this.getHeight() / 2));
 //        setLocation(newLocation);
-        setLocation(150, 150);
+//        setLocation(150, 150);
         add(gameScreen, BorderLayout.CENTER);
         add(menuScreen, BorderLayout.EAST);
 
         pack();
+        setResizable(false);
         setVisible(true);
     }
 }

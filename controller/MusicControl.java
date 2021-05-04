@@ -1,6 +1,6 @@
 package controller;
 
-import model.MusicThread;
+import thread.MusicThread;
 
 public class MusicControl
 {
@@ -11,6 +11,10 @@ public class MusicControl
     {
         this.threadControl = new ThreadControl();
         this.musicThread   = new MusicThread(threadControl);
+    }
+
+    public void start()
+    {
         this.musicThread.start();
     }
 
