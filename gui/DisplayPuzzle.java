@@ -9,6 +9,7 @@ import controller.AchievementController;
 import controller.TimeControl;
 import custom_event.CustomFocusListener;
 import custom_event.CustomKeyListener;
+import custom_event.JPanelWithBackground;
 import model.AchievementModel;
 import model.NodeModel;
 import controller.PuzzleSetUp;
@@ -16,7 +17,7 @@ import controller.PuzzleSetUp;
 public class DisplayPuzzle extends JPanel
 {
     private final JPanel gameScreen;
-    private final JPanel waitScreen;
+    private final JPanelWithBackground waitScreen;
 
     private final PuzzleSetUp puzzleSetUp;
     private final TimeControl timeControl;
@@ -32,15 +33,15 @@ public class DisplayPuzzle extends JPanel
     {
         achievementModel = new AchievementModel();
         this.gameScreen  = new JPanel();
-        this.waitScreen  = new JPanel();
+        this.waitScreen  = new JPanelWithBackground();
 
         this.puzzleSetUp   = puzzleSetUp;
         this.textFieldList = textFieldList;
         this.timeControl   = timeControl;
 
-        setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
-        setBackground(Color.red);
-        waitScreen();
+        //        setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        beginScreen();
         switchScreen(true);
     }
 
@@ -96,8 +97,17 @@ public class DisplayPuzzle extends JPanel
         }
     }
 
+    private void beginScreen()
+    {
+        this.waitScreen.setPreferredSize(new Dimension(646, 646));
+    }
+
     public void waitScreen()
     {
+        removeAll();
+        revalidate();
+        repaint();
+
         this.waitScreen.setLayout(new GridLayout(3, 3, 1, 1));
 
         for (int i = 0; i < 9; i++)
@@ -108,7 +118,7 @@ public class DisplayPuzzle extends JPanel
 
             for (int j = 0; j < 9; j++)
             {
-                extraPanel.add(uneditable(""));
+                extraPanel.add(uneditableNode(""));
             }
 
             this.waitScreen.add(extraPanel);
@@ -136,7 +146,7 @@ public class DisplayPuzzle extends JPanel
         {
             JPanel extraPanel = new JPanel();
             extraPanel.setLayout(new GridLayout(3, 3, 1, 1));
-            extraPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+            extraPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#ff33cc")));
 
             ArrayList<NodeModel> temp = puzzleSetUp.getNodeList();
             for (int j = (i / 3) * 3; j < (i / 3) * 3 + 3; j++)
@@ -145,33 +155,32 @@ public class DisplayPuzzle extends JPanel
                 {
                     if (temp.get(9 * j + k).isImmutable())
                     {
-                        extraPanel.add(uneditable(String.valueOf((temp.get(9 * j + k).getVal()))));
+                        extraPanel.add(uneditableNode(String.valueOf((temp.get(9 * j + k).getVal()))));
                     }
                     else
                     {
-                        extraPanel.add(editable(9 * j + k));
+                        extraPanel.add(editableNode(9 * j + k));
                     }
                 }
             }
             this.gameScreen.add(extraPanel);
         }
-        switchScreen(false);
     }
 
-    private JTextField editable(int i)
+    private JTextField editableNode(int i)
     {
         textFieldList.get(i).setPreferredSize(new Dimension(70, 70));
         textFieldList.get(i).setHorizontalAlignment(JTextField.CENTER);
         textFieldList.get(i).setFont(new Font("arial", Font.BOLD, 40));
         textFieldList.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
 
-        textFieldList.get(i).addKeyListener(new MyKeyListener(i));
+        textFieldList.get(i).addKeyListener(new ValidateInput(i));
         textFieldList.get(i).addFocusListener(new MyFocusListener(i));
 
         return textFieldList.get(i);
     }
 
-    private JLabel uneditable(String value)
+    private JLabel uneditableNode(String value)
     {
         JLabel label = new JLabel(value);
 
@@ -290,11 +299,11 @@ public class DisplayPuzzle extends JPanel
     }
 
 
-    class MyKeyListener extends CustomKeyListener
+    class ValidateInput extends CustomKeyListener
     {
         private final int i;
 
-        public MyKeyListener(int i)
+        public ValidateInput(int i)
         {
             this.i = i;
         }

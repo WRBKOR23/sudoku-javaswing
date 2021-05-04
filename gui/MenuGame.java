@@ -2,10 +2,10 @@ package gui;
 
 import controller.MusicControl;
 import custom_event.CustomActionListener;
-import custom_event.CustomKeyListener;
 import custom_event.CustomMouseListener;
 import custom_event.CustomWindowListener;
 import controller.TimeControl;
+import custom_event.GradientJPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuGame extends JPanel
+public class MenuGame extends GradientJPanel
 {
 
     private final DisplayPuzzle display;
@@ -46,11 +46,14 @@ public class MenuGame extends JPanel
     // time label
     JLabel clockLabel;
 
+    // mode label
+    JLabel modeLabel;
+
     // even listener
     private GameControl gameControl;
     private ChangeAchievementBtStatus changeAchievementBtStatus;
     private MousePosition mousePosition;
-    private GetTextFromField getTextFromField;
+    private HotKeyConfirm hotKeyConfirm;
 
     public MenuGame(DisplayPuzzle display, TimeControl timeControl, MusicControl musicControl)
     {
@@ -58,6 +61,11 @@ public class MenuGame extends JPanel
 
         this.timeControl  = timeControl;
         this.musicControl = musicControl;
+
+        generateEvent();
+        generateComponents();
+
+        //        initGUI();
 
         waitScreen();
     }
@@ -67,7 +75,7 @@ public class MenuGame extends JPanel
         gameControl               = new GameControl();
         changeAchievementBtStatus = new ChangeAchievementBtStatus();
         mousePosition             = new MousePosition();
-        getTextFromField          = new GetTextFromField();
+        hotKeyConfirm             = new HotKeyConfirm();
     }
 
     private void generateComponents()
@@ -81,43 +89,51 @@ public class MenuGame extends JPanel
         resumeBt = createControlButton("resume");
         pauseBt  = createControlButton("pause");
 
-        easyModeBt      = createModeButton("Easy");
-        normalModeBt    = createModeButton("Normal");
-        hardModeBt      = createModeButton("Hard");
-        challengeModeBt = createModeButton("Challenge");
+        easyModeBt      = createModeButton("Easy", "#1cde12");
+        normalModeBt    = createModeButton("Normal", "#c312de");
+        hardModeBt      = createModeButton("Hard", "#ff9317");
+        challengeModeBt = createModeButton("Challenge", "#ff1717");
 
         clockLabel = createClockLabel();
+        modeLabel  = createModeGameLabel();
     }
 
     public void waitScreen()
     {
+        removeAll();
+        revalidate();
+        repaint();
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel userNameLabel = new JLabel("Nickname: ");
-        userNameLabel.setFont(new Font("arial", Font.BOLD, 15));
+        add(createPanelWaitScreen());
+    }
+
+    private JPanel createPanelWaitScreen()
+    {
+        GradientJPanel panel = new GradientJPanel(Color.decode("#ff33cc"), Color.decode("#0000ff"));
+        panel.setPreferredSize(new Dimension(300, 100));
+
+        JLabel userNameLabel = new JLabel("Enter player name: ");
+        userNameLabel.setFont(new Font("arial", Font.BOLD, 20));
+        userNameLabel.setForeground(Color.black);
 
         playerNameField = new JTextField();
         playerNameField.setPreferredSize(new Dimension(200, 30));
-        playerNameField.setFont(new Font("arial", Font.BOLD, 15));
+        playerNameField.setFont(new Font("arial", Font.BOLD, 20));
+        playerNameField.addActionListener(hotKeyConfirm);
 
-        getTextFromField.setPlayerNameField(playerNameField);
-        playerNameField.addKeyListener(getTextFromField);
-
-        JPanel playerNamePanel = new JPanel();
-        playerNamePanel.add(userNameLabel);
-        playerNamePanel.add(playerNameField);
-
-        JButton confirmBt = new JButton("CONFIRM");
+        JButton confirmBt = new JButton("START");
         confirmBt.setPreferredSize(new Dimension(100, 40));
         confirmBt.setActionCommand("start");
         confirmBt.addActionListener(gameControl);
 
-        JPanel confirmPanel = new JPanel();
-        confirmPanel.setMaximumSize(new Dimension(350, 70));
-        confirmPanel.add(confirmBt);
+        panel.add(Box.createRigidArea(new Dimension(300, 220)));
+        panel.add(userNameLabel);
+        panel.add(playerNameField);
+        panel.add(confirmBt);
 
-        add(playerNamePanel);
-        add(confirmPanel);
+        return panel;
     }
 
     private void initGUI()
@@ -127,16 +143,11 @@ public class MenuGame extends JPanel
         repaint();
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setOpaque(true);
-        setBackground(Color.red);
-
-        generateEvent();
-        generateComponents();
 
         addMouseListener(mousePosition);
 
         add(createFeatureArea());
-        add(timeControl());
+        add(gameDetailArea());
         add(createControlArea());
         add(createModeArea());
     }
@@ -147,6 +158,7 @@ public class MenuGame extends JPanel
     {
         JPanel featurePanel = new JPanel();
         featurePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        featurePanel.setBackground(new Color(0, 0, 0, 0));
 
         featurePanel.add(hintBt);
         featurePanel.add(checkBt);
@@ -179,36 +191,129 @@ public class MenuGame extends JPanel
 
     //----------- TIME AREA --------------------------------------------------
 
-    private JPanel timeControl()
+    private JPanel gameDetailArea()
+    {
+        JPanel gameDetailArea = new JPanel();
+        gameDetailArea.setLayout(new BoxLayout(gameDetailArea, BoxLayout.X_AXIS));
+        gameDetailArea.setBackground(new Color(0, 0, 0, 0));
+
+        gameDetailArea.add(createTimeDetailArea());
+        gameDetailArea.add(modeDetailArea());
+
+        return gameDetailArea;
+    }
+
+    private JPanel createTimeDetailArea()
     {
         JPanel timeArea = new JPanel();
-        timeArea.setPreferredSize(new Dimension(300, 150));
-        timeArea.setOpaque(true);
-        timeArea.setBackground(Color.blue);
+        timeArea.setLayout(new BoxLayout(timeArea, BoxLayout.Y_AXIS));
+        timeArea.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 1, Color.blue));
 
-        timeArea.add(createTimeTitleLabel());
-        timeArea.add(clockLabel);
+        timeArea.add(createTimeTitlePanel());
+        timeArea.add(createClockPanel());
 
         return timeArea;
+    }
+
+    private JPanel createTimeTitlePanel()
+    {
+        JPanel timePanel = new JPanel();
+        timePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        timePanel.setMaximumSize(new Dimension(150, 50));
+
+        timePanel.add(createTimeTitleLabel());
+
+        return timePanel;
     }
 
     private JLabel createTimeTitleLabel()
     {
         JLabel timeTitleLabel = new JLabel("TIME", SwingConstants.CENTER);
-        timeTitleLabel.setPreferredSize(new Dimension(300, 70));
-        timeTitleLabel.setFont(new Font("arial", Font.BOLD, 20));
+        timeTitleLabel.setPreferredSize(new Dimension(150, 50));
+        timeTitleLabel.setOpaque(true);
+        timeTitleLabel.setBackground(Color.white);
+        timeTitleLabel.setFont(new Font("arial", Font.BOLD, 25));
 
         return timeTitleLabel;
+    }
+
+    private JPanel createClockPanel()
+    {
+        JPanel clockPanel = new JPanel();
+        clockPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        clockPanel.setMaximumSize(new Dimension(150, 50));
+        clockPanel.add(clockLabel);
+
+        return clockPanel;
     }
 
     private JLabel createClockLabel()
     {
         JLabel clockLabel = timeControl.getTimeThread().getClockLabel();
-        clockLabel.setPreferredSize(new Dimension(300, 50));
-        //        clockLabel.setHorizontalAlignment(JLabel.CENTER);
-        clockLabel.setFont(new Font("arial", Font.BOLD, 40));
+        clockLabel.setPreferredSize(new Dimension(150, 50));
+        clockLabel.setOpaque(true);
+        clockLabel.setBackground(Color.white);
+        clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        clockLabel.setFont(new Font("arial", Font.BOLD, 25));
 
         return clockLabel;
+    }
+
+    private JPanel modeDetailArea()
+    {
+        JPanel modeDetailArea = new JPanel();
+
+        modeDetailArea.setLayout(new BoxLayout(modeDetailArea, BoxLayout.Y_AXIS));
+        modeDetailArea.setBackground(new Color(0, 0, 0, 0));
+        modeDetailArea.setBorder(BorderFactory.createMatteBorder(2, 1, 2, 0, Color.blue));
+        modeDetailArea.add(createModeTitlePanel());
+        modeDetailArea.add(createModeGamePanel());
+
+        return modeDetailArea;
+    }
+
+    private JPanel createModeTitlePanel()
+    {
+        JPanel modePanel = new JPanel();
+        modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        modePanel.setMaximumSize(new Dimension(150, 50));
+        modePanel.add(createModeTitleLabel());
+
+        return modePanel;
+    }
+
+    private JLabel createModeTitleLabel()
+    {
+        JLabel modeTitleLabel = new JLabel("MODE", SwingConstants.CENTER);
+        modeTitleLabel.setPreferredSize(new Dimension(150, 50));
+        modeTitleLabel.setOpaque(true);
+        modeTitleLabel.setBackground(Color.white);
+        modeTitleLabel.setFont(new Font("arial", Font.BOLD, 25));
+
+        return modeTitleLabel;
+    }
+
+    private JPanel createModeGamePanel()
+    {
+        JPanel modePanel = new JPanel();
+        modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        modePanel.setMaximumSize(new Dimension(150, 50));
+        modePanel.add(modeLabel);
+
+        return modePanel;
+    }
+
+    private JLabel createModeGameLabel()
+    {
+        JLabel modeLabel = new JLabel("None");
+
+        modeLabel.setPreferredSize(new Dimension(150, 50));
+        modeLabel.setOpaque(true);
+        modeLabel.setBackground(Color.white);
+        modeLabel.setHorizontalAlignment(JLabel.CENTER);
+        modeLabel.setFont(new Font("arial", Font.BOLD, 25));
+
+        return modeLabel;
     }
 
     // -----------------------------------------------------------------------
@@ -220,6 +325,8 @@ public class MenuGame extends JPanel
     {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        controlPanel.setBackground(new Color(0, 0, 0, 0));
+        controlPanel.setPreferredSize(new Dimension(300, 50));
 
         controlPanel.add(resumeBt);
         controlPanel.add(pauseBt);
@@ -249,13 +356,12 @@ public class MenuGame extends JPanel
     {
         JPanel modeArea = new JPanel();
         modeArea.setLayout(new BoxLayout(modeArea, BoxLayout.Y_AXIS));
+        modeArea.setBackground(new Color(0, 0, 0, 0));
 
         modeArea.add(createModePanel(challengeModeBt));
         modeArea.add(createModePanel(hardModeBt));
         modeArea.add(createModePanel(normalModeBt));
         modeArea.add(createModePanel(easyModeBt));
-
-        modeArea.setPreferredSize(new Dimension(300, 250));
 
         return modeArea;
     }
@@ -263,18 +369,24 @@ public class MenuGame extends JPanel
     private JPanel createModePanel(JButton button)
     {
         JPanel modePanel = new JPanel();
+        modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+        modePanel.setBackground(new Color(0, 0, 0, 0));
+        modePanel.setPreferredSize(new Dimension(300, 70));
         modePanel.add(button);
-        modePanel.setOpaque(true);
-        modePanel.setBackground(Color.green);
 
         return modePanel;
     }
 
-    private JButton createModeButton(String mode)
+    private JButton createModeButton(String mode, String color)
     {
         JButton button = new JButton(mode);
+
         button.setPreferredSize(new Dimension(130, 50));
+        button.setOpaque(true);
+        button.setBackground(Color.decode(color));
+        button.setBorder(BorderFactory.createLineBorder(Color.white, 3, true));
         button.setFont(new Font("arial", Font.BOLD, 18));
+        button.setForeground(Color.white);
 
         button.setActionCommand(mode.toLowerCase());
         button.addActionListener(gameControl);
@@ -287,14 +399,15 @@ public class MenuGame extends JPanel
 
     private Image getIconButton(String nameButton, int size)
     {
-        String directory = "src/icon/" + nameButton + "_button.png";
-        Image img = null;
+        String directory = "src/icon_image/" + nameButton + "_button.png";
+        Image  img       = null;
 
         try
         {
             img = ImageIO.read(new File(directory));
 
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -308,6 +421,47 @@ public class MenuGame extends JPanel
     {
         Icon icon = new ImageIcon((getIconButton(buttonName, 40)));
         musicBt.setIcon(icon);
+    }
+
+    private void start()
+    {
+        String playerName = playerNameField.getText();
+        if (playerName.equals(""))
+        {
+            return;
+        }
+
+        display.getAchievementModel().setPlayerName(playerName);
+        initGUI();
+
+        timeControl.start();
+        musicControl.start();
+    }
+
+    private void displayMode(String mode)
+    {
+        switch (mode)
+        {
+            case "easy" -> {
+                modeLabel.setText(easyModeBt.getText());
+                modeLabel.setForeground(easyModeBt.getBackground());
+            }
+
+            case "normal" -> {
+                modeLabel.setText(normalModeBt.getText());
+                modeLabel.setForeground(normalModeBt.getBackground());
+            }
+
+            case "hard" -> {
+                modeLabel.setText(hardModeBt.getText());
+                modeLabel.setForeground(hardModeBt.getBackground());
+            }
+
+            case "challenge" -> {
+                modeLabel.setText(challengeModeBt.getText());
+                modeLabel.setForeground(challengeModeBt.getBackground());
+            }
+        }
     }
 
     class GameControl extends CustomActionListener
@@ -341,46 +495,36 @@ public class MenuGame extends JPanel
             }
         }
 
-        private void start()
-        {
-            String playerName = playerNameField.getText();
-            if (playerName.equals(""))
-            {
-                return;
-            }
-
-            display.getAchievementModel().setPlayerName(playerName);
-            initGUI();
-        }
-
         private void createNewGame(String mode)
         {
             int choice = JOptionPane.showOptionDialog(null,
-                    "Are you sure want to start a new game?",
-                    "Start new game",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, null, null);
+                                                      "Are you sure want to start a new game?",
+                                                      "Start new game",
+                                                      JOptionPane.YES_NO_OPTION,
+                                                      JOptionPane.QUESTION_MESSAGE,
+                                                      null, null, null);
 
             if (choice == JOptionPane.YES_OPTION)
             {
                 if (!display.createNewGame(mode))
                 {
                     JOptionPane.showMessageDialog(null,
-                            "Bạn đã chơi hết các câu đố ở chế độ này\n" +
-                            "Vui lòng chọn chế độ khác để tiếp tục chơi!",
-                            "",
-                            JOptionPane.INFORMATION_MESSAGE);
+                                                  "Bạn đã chơi hết các câu đố ở chế độ này\n" +
+                                                  "Vui lòng chọn chế độ khác để tiếp tục chơi!",
+                                                  "",
+                                                  JOptionPane.INFORMATION_MESSAGE);
 
                     return;
                 }
 
                 timeControl.startOver();
+                displayMode(mode);
 
                 display.getAchievementModel().setMode(mode);
                 display.resetInfo();
                 display.setFlagStart(true);
                 display.initGUI();
+                display.switchScreen(false);
             }
         }
 
@@ -445,21 +589,12 @@ public class MenuGame extends JPanel
         }
     }
 
-
-    class GetTextFromField extends CustomKeyListener
+    class HotKeyConfirm extends CustomActionListener
     {
-        JTextField playerNameField;
-
-        public void setPlayerNameField(JTextField playerNameField)
-        {
-            this.playerNameField = playerNameField;
-        }
-
         @Override
-        public void keyReleased(KeyEvent e)
+        public void actionPerformed(ActionEvent e)
         {
-            String playerName = playerNameField.getText();
-            display.getAchievementModel().setPlayerName(playerName);
+            start();
         }
     }
 
@@ -470,7 +605,7 @@ public class MenuGame extends JPanel
         {
             display.resetCurrPos();
 
-            if (e.getComponent().getX() == 130 &&
+            if (e.getComponent().getX() == 131 &&
                 e.getComponent().getY() == 10)
             {
                 if (e.getButton() == 1)
