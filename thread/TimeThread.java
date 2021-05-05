@@ -19,8 +19,6 @@ public class TimeThread extends Thread
     public TimeThread(ThreadControl threadControl)
     {
         this.threadControl = threadControl;
-//        clockLabel         = new GradientLabel("00:00:00", SwingConstants.CENTER,
-//                            Color.decode("#ff33cc"), Color.decode("#0000ff"));
         clockLabel = new JLabel("00:00:00", SwingConstants.CENTER);
     }
 
@@ -45,9 +43,8 @@ public class TimeThread extends Thread
                 {
                     threadControl.hold();
                 }
-
-                clockLabel.setText(convertToTime(++time));
                 TimeUnit.MILLISECONDS.sleep(1000);
+                clockLabel.setText(convertToTime(++time));
 
             } catch (InterruptedException e)
             {

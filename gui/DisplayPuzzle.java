@@ -33,7 +33,7 @@ public class DisplayPuzzle extends JPanel
     {
         achievementModel = new AchievementModel();
         this.gameScreen  = new JPanel();
-        this.waitScreen  = new JPanelWithBackground();
+        this.waitScreen  = new JPanelWithBackground(646, 646, "game");
 
         this.puzzleSetUp   = puzzleSetUp;
         this.textFieldList = textFieldList;

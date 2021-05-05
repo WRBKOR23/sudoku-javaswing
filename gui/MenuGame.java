@@ -1,11 +1,8 @@
 package gui;
 
 import controller.MusicControl;
-import custom_event.CustomActionListener;
-import custom_event.CustomMouseListener;
-import custom_event.CustomWindowListener;
+import custom_event.*;
 import controller.TimeControl;
-import custom_event.GradientJPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +11,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuGame extends GradientJPanel
+public class MenuGame extends JPanelWithBackground
 {
 
     private final DisplayPuzzle display;
@@ -57,20 +54,19 @@ public class MenuGame extends GradientJPanel
 
     public MenuGame(DisplayPuzzle display, TimeControl timeControl, MusicControl musicControl)
     {
+        super(310, 646, "menu1");
         this.display = display;
 
         this.timeControl  = timeControl;
         this.musicControl = musicControl;
 
-        generateEvent();
+        generateEvents();
         generateComponents();
-
-        //        initGUI();
 
         waitScreen();
     }
 
-    private void generateEvent()
+    private void generateEvents()
     {
         gameControl               = new GameControl();
         changeAchievementBtStatus = new ChangeAchievementBtStatus();
@@ -111,20 +107,27 @@ public class MenuGame extends GradientJPanel
 
     private JPanel createPanelWaitScreen()
     {
-        GradientJPanel panel = new GradientJPanel(Color.decode("#ff33cc"), Color.decode("#0000ff"));
+        JPanelWithBackground panel = new JPanelWithBackground(310, 646, "menu4");
         panel.setPreferredSize(new Dimension(300, 100));
 
-        JLabel userNameLabel = new JLabel("Enter player name: ");
-        userNameLabel.setFont(new Font("arial", Font.BOLD, 20));
-        userNameLabel.setForeground(Color.black);
+        JLabel userNameLabel = new JLabel(" Enter player name: ");
+        userNameLabel.setFont(new Font("arial", Font.BOLD, 30));
+        userNameLabel.setForeground(Color.decode("#2c2c62"));
 
         playerNameField = new JTextField();
         playerNameField.setPreferredSize(new Dimension(200, 30));
         playerNameField.setFont(new Font("arial", Font.BOLD, 20));
         playerNameField.addActionListener(hotKeyConfirm);
+        playerNameField.setForeground(Color.decode("#2c2c62"));
 
         JButton confirmBt = new JButton("START");
         confirmBt.setPreferredSize(new Dimension(100, 40));
+        confirmBt.setOpaque(true);
+        confirmBt.setBackground(Color.decode("#fd5f92"));
+        confirmBt.setBorder(BorderFactory.createLineBorder(Color.white, 3, false));
+        confirmBt.setFont(new Font("arial", Font.BOLD, 18));
+        confirmBt.setForeground(Color.decode("#2c2c62"));
+
         confirmBt.setActionCommand("start");
         confirmBt.addActionListener(gameControl);
 
@@ -147,7 +150,7 @@ public class MenuGame extends GradientJPanel
         addMouseListener(mousePosition);
 
         add(createFeatureArea());
-        add(gameDetailArea());
+        add(createGameDetailArea());
         add(createControlArea());
         add(createModeArea());
     }
@@ -191,11 +194,10 @@ public class MenuGame extends GradientJPanel
 
     //----------- TIME AREA --------------------------------------------------
 
-    private JPanel gameDetailArea()
+    private JPanel createGameDetailArea()
     {
         JPanel gameDetailArea = new JPanel();
         gameDetailArea.setLayout(new BoxLayout(gameDetailArea, BoxLayout.X_AXIS));
-        gameDetailArea.setBackground(new Color(0, 0, 0, 0));
 
         gameDetailArea.add(createTimeDetailArea());
         gameDetailArea.add(modeDetailArea());
@@ -206,8 +208,9 @@ public class MenuGame extends GradientJPanel
     private JPanel createTimeDetailArea()
     {
         JPanel timeArea = new JPanel();
+
         timeArea.setLayout(new BoxLayout(timeArea, BoxLayout.Y_AXIS));
-        timeArea.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 1, Color.blue));
+        timeArea.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 1, Color.decode("#2197f1")));
 
         timeArea.add(createTimeTitlePanel());
         timeArea.add(createClockPanel());
@@ -231,8 +234,9 @@ public class MenuGame extends GradientJPanel
         JLabel timeTitleLabel = new JLabel("TIME", SwingConstants.CENTER);
         timeTitleLabel.setPreferredSize(new Dimension(150, 50));
         timeTitleLabel.setOpaque(true);
-        timeTitleLabel.setBackground(Color.white);
+        timeTitleLabel.setBackground(Color.decode("#fd5f92"));
         timeTitleLabel.setFont(new Font("arial", Font.BOLD, 25));
+        timeTitleLabel.setForeground(Color.decode("#2c2c62"));
 
         return timeTitleLabel;
     }
@@ -251,10 +255,11 @@ public class MenuGame extends GradientJPanel
     {
         JLabel clockLabel = timeControl.getTimeThread().getClockLabel();
         clockLabel.setPreferredSize(new Dimension(150, 50));
-        clockLabel.setOpaque(true);
-        clockLabel.setBackground(Color.white);
         clockLabel.setHorizontalAlignment(JLabel.CENTER);
+        clockLabel.setOpaque(true);
+        clockLabel.setBackground(Color.decode("#fd5f92"));
         clockLabel.setFont(new Font("arial", Font.BOLD, 25));
+        clockLabel.setForeground(Color.decode("#2c2c62"));
 
         return clockLabel;
     }
@@ -264,8 +269,8 @@ public class MenuGame extends GradientJPanel
         JPanel modeDetailArea = new JPanel();
 
         modeDetailArea.setLayout(new BoxLayout(modeDetailArea, BoxLayout.Y_AXIS));
-        modeDetailArea.setBackground(new Color(0, 0, 0, 0));
-        modeDetailArea.setBorder(BorderFactory.createMatteBorder(2, 1, 2, 0, Color.blue));
+        modeDetailArea.setBorder(BorderFactory.createMatteBorder(2, 1, 2, 0, Color.decode("#2197f1")));
+
         modeDetailArea.add(createModeTitlePanel());
         modeDetailArea.add(createModeGamePanel());
 
@@ -282,13 +287,24 @@ public class MenuGame extends GradientJPanel
         return modePanel;
     }
 
+    private JPanel _createTitlePanel(String str)
+    {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        panel.setMaximumSize(new Dimension(150, 50));
+        panel.add(_createlabel(str));
+
+        return panel;
+    }
+
     private JLabel createModeTitleLabel()
     {
         JLabel modeTitleLabel = new JLabel("MODE", SwingConstants.CENTER);
         modeTitleLabel.setPreferredSize(new Dimension(150, 50));
         modeTitleLabel.setOpaque(true);
-        modeTitleLabel.setBackground(Color.white);
+        modeTitleLabel.setBackground(Color.decode("#fd5f92"));
         modeTitleLabel.setFont(new Font("arial", Font.BOLD, 25));
+        modeTitleLabel.setForeground(Color.decode("#2c2c62"));
 
         return modeTitleLabel;
     }
@@ -303,15 +319,30 @@ public class MenuGame extends GradientJPanel
         return modePanel;
     }
 
+    private JLabel _createlabel(String str)
+    {
+        JLabel label = new JLabel(str);
+
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setPreferredSize(new Dimension(150, 50));
+        label.setOpaque(true);
+        label.setBackground(Color.decode("#fd5f92"));
+        label.setFont(new Font("arial", Font.BOLD, 25));
+        label.setForeground(Color.decode("#2c2c62"));
+
+        return label;
+    }
+
     private JLabel createModeGameLabel()
     {
         JLabel modeLabel = new JLabel("None");
 
         modeLabel.setPreferredSize(new Dimension(150, 50));
         modeLabel.setOpaque(true);
-        modeLabel.setBackground(Color.white);
+        modeLabel.setBackground(Color.decode("#fd5f92"));
         modeLabel.setHorizontalAlignment(JLabel.CENTER);
         modeLabel.setFont(new Font("arial", Font.BOLD, 25));
+        modeLabel.setForeground(Color.decode("#2c2c62"));
 
         return modeLabel;
     }
@@ -371,7 +402,6 @@ public class MenuGame extends GradientJPanel
         JPanel modePanel = new JPanel();
         modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
         modePanel.setBackground(new Color(0, 0, 0, 0));
-        modePanel.setPreferredSize(new Dimension(300, 70));
         modePanel.add(button);
 
         return modePanel;
@@ -384,7 +414,7 @@ public class MenuGame extends GradientJPanel
         button.setPreferredSize(new Dimension(130, 50));
         button.setOpaque(true);
         button.setBackground(Color.decode(color));
-        button.setBorder(BorderFactory.createLineBorder(Color.white, 3, true));
+        button.setBorder(BorderFactory.createLineBorder(Color.white, 3, false));
         button.setFont(new Font("arial", Font.BOLD, 18));
         button.setForeground(Color.white);
 
@@ -444,22 +474,18 @@ public class MenuGame extends GradientJPanel
         {
             case "easy" -> {
                 modeLabel.setText(easyModeBt.getText());
-                modeLabel.setForeground(easyModeBt.getBackground());
             }
 
             case "normal" -> {
                 modeLabel.setText(normalModeBt.getText());
-                modeLabel.setForeground(normalModeBt.getBackground());
             }
 
             case "hard" -> {
                 modeLabel.setText(hardModeBt.getText());
-                modeLabel.setForeground(hardModeBt.getBackground());
             }
 
             case "challenge" -> {
                 modeLabel.setText(challengeModeBt.getText());
-                modeLabel.setForeground(challengeModeBt.getBackground());
             }
         }
     }
