@@ -90,8 +90,8 @@ public class MenuGame extends JPanelWithBackground
         hardModeBt      = createModeButton("Hard", "#ff9317");
         challengeModeBt = createModeButton("Challenge", "#ff1717");
 
-        clockLabel = createClockLabel();
-        modeLabel  = createModeGameLabel();
+        clockLabel = _createClockLabel();
+        modeLabel  = _createModeGameLabel();
     }
 
     public void waitScreen()
@@ -199,59 +199,33 @@ public class MenuGame extends JPanelWithBackground
         JPanel gameDetailArea = new JPanel();
         gameDetailArea.setLayout(new BoxLayout(gameDetailArea, BoxLayout.X_AXIS));
 
-        gameDetailArea.add(createTimeDetailArea());
-        gameDetailArea.add(modeDetailArea());
+        gameDetailArea.add(_createPartOfGameDetailArea("TIME", clockLabel, 1));
+        gameDetailArea.add(_createPartOfGameDetailArea("MODE", modeLabel, -1));
 
         return gameDetailArea;
     }
 
-    private JPanel createTimeDetailArea()
+    private JPanel _createPartOfGameDetailArea(String str, JLabel label, int pos)
     {
-        JPanel timeArea = new JPanel();
+        JPanel panel = new JPanel();
 
-        timeArea.setLayout(new BoxLayout(timeArea, BoxLayout.Y_AXIS));
-        timeArea.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 1, Color.decode("#2197f1")));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        if (pos == 1)
+        {
+            panel.setBorder(BorderFactory.createMatteBorder(4, 0, 4, 2, Color.decode("#2197f1")));
+        }
+        else
+        {
+            panel.setBorder(BorderFactory.createMatteBorder(4, 2, 4, 0, Color.decode("#2197f1")));
+        }
 
-        timeArea.add(createTimeTitlePanel());
-        timeArea.add(createClockPanel());
+        panel.add(_createTitlePanel(str));
+        panel.add(_createStatusGamePanel(label));
 
-        return timeArea;
+        return panel;
     }
 
-    private JPanel createTimeTitlePanel()
-    {
-        JPanel timePanel = new JPanel();
-        timePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        timePanel.setMaximumSize(new Dimension(150, 50));
-
-        timePanel.add(createTimeTitleLabel());
-
-        return timePanel;
-    }
-
-    private JLabel createTimeTitleLabel()
-    {
-        JLabel timeTitleLabel = new JLabel("TIME", SwingConstants.CENTER);
-        timeTitleLabel.setPreferredSize(new Dimension(150, 50));
-        timeTitleLabel.setOpaque(true);
-        timeTitleLabel.setBackground(Color.decode("#fd5f92"));
-        timeTitleLabel.setFont(new Font("arial", Font.BOLD, 25));
-        timeTitleLabel.setForeground(Color.decode("#2c2c62"));
-
-        return timeTitleLabel;
-    }
-
-    private JPanel createClockPanel()
-    {
-        JPanel clockPanel = new JPanel();
-        clockPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        clockPanel.setMaximumSize(new Dimension(150, 50));
-        clockPanel.add(clockLabel);
-
-        return clockPanel;
-    }
-
-    private JLabel createClockLabel()
+    private JLabel _createClockLabel()
     {
         JLabel clockLabel = timeControl.getTimeThread().getClockLabel();
         clockLabel.setPreferredSize(new Dimension(150, 50));
@@ -264,62 +238,27 @@ public class MenuGame extends JPanelWithBackground
         return clockLabel;
     }
 
-    private JPanel modeDetailArea()
-    {
-        JPanel modeDetailArea = new JPanel();
-
-        modeDetailArea.setLayout(new BoxLayout(modeDetailArea, BoxLayout.Y_AXIS));
-        modeDetailArea.setBorder(BorderFactory.createMatteBorder(2, 1, 2, 0, Color.decode("#2197f1")));
-
-        modeDetailArea.add(createModeTitlePanel());
-        modeDetailArea.add(createModeGamePanel());
-
-        return modeDetailArea;
-    }
-
-    private JPanel createModeTitlePanel()
-    {
-        JPanel modePanel = new JPanel();
-        modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        modePanel.setMaximumSize(new Dimension(150, 50));
-        modePanel.add(createModeTitleLabel());
-
-        return modePanel;
-    }
-
     private JPanel _createTitlePanel(String str)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         panel.setMaximumSize(new Dimension(150, 50));
-        panel.add(_createlabel(str));
+        panel.add(_createLabel(str));
 
         return panel;
     }
 
-    private JLabel createModeTitleLabel()
+    private JPanel _createStatusGamePanel(JLabel label)
     {
-        JLabel modeTitleLabel = new JLabel("MODE", SwingConstants.CENTER);
-        modeTitleLabel.setPreferredSize(new Dimension(150, 50));
-        modeTitleLabel.setOpaque(true);
-        modeTitleLabel.setBackground(Color.decode("#fd5f92"));
-        modeTitleLabel.setFont(new Font("arial", Font.BOLD, 25));
-        modeTitleLabel.setForeground(Color.decode("#2c2c62"));
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        panel.setMaximumSize(new Dimension(150, 50));
+        panel.add(label);
 
-        return modeTitleLabel;
+        return panel;
     }
 
-    private JPanel createModeGamePanel()
-    {
-        JPanel modePanel = new JPanel();
-        modePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        modePanel.setMaximumSize(new Dimension(150, 50));
-        modePanel.add(modeLabel);
-
-        return modePanel;
-    }
-
-    private JLabel _createlabel(String str)
+    private JLabel _createLabel(String str)
     {
         JLabel label = new JLabel(str);
 
@@ -333,7 +272,7 @@ public class MenuGame extends JPanelWithBackground
         return label;
     }
 
-    private JLabel createModeGameLabel()
+    private JLabel _createModeGameLabel()
     {
         JLabel modeLabel = new JLabel("None");
 
@@ -371,6 +310,8 @@ public class MenuGame extends JPanelWithBackground
 
         JButton button = new JButton(new ImageIcon(img));
         button.setPreferredSize(new Dimension(50, 50));
+        button.setBorder(BorderFactory.createLineBorder(Color.white, 3, false));
+
         button.setActionCommand(nameButton);
         button.addActionListener(gameControl);
         button.addMouseListener(mousePosition);
@@ -631,7 +572,10 @@ public class MenuGame extends JPanelWithBackground
         {
             display.resetCurrPos();
 
-            if (e.getComponent().getX() == 131 &&
+            System.out.println(e.getComponent().getX());
+            System.out.println(e.getComponent().getY());
+
+            if (e.getComponent().getX() == 132 &&
                 e.getComponent().getY() == 10)
             {
                 if (e.getButton() == 1)

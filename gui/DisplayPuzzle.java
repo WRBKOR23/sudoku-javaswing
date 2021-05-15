@@ -39,7 +39,6 @@ public class DisplayPuzzle extends JPanel
         this.textFieldList = textFieldList;
         this.timeControl   = timeControl;
 
-        //        setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         beginScreen();
         switchScreen(true);
@@ -171,8 +170,10 @@ public class DisplayPuzzle extends JPanel
     {
         textFieldList.get(i).setPreferredSize(new Dimension(70, 70));
         textFieldList.get(i).setHorizontalAlignment(JTextField.CENTER);
-        textFieldList.get(i).setFont(new Font("arial", Font.BOLD, 40));
         textFieldList.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+
+        textFieldList.get(i).setFont(new Font("arial", Font.BOLD, 40));
+        textFieldList.get(i).setForeground(Color.decode("#0f81d8"));
 
         textFieldList.get(i).addKeyListener(new ValidateInput(i));
         textFieldList.get(i).addFocusListener(new MyFocusListener(i));
@@ -189,7 +190,7 @@ public class DisplayPuzzle extends JPanel
         label.setFont(new Font("arial", Font.BOLD, 40));
 
         label.setOpaque(true);
-        label.setBackground(Color.blue);
+        label.setBackground(Color.decode("#0f81d8"));
         label.setForeground(Color.white);
 
         return label;
@@ -342,7 +343,7 @@ public class DisplayPuzzle extends JPanel
 
             for (int i = 0; i < 81; i++)
             {
-                textFieldList.get(i).setForeground(Color.black);
+                textFieldList.get(i).setForeground(Color.decode("#0f81d8"));
             }
         }
 
