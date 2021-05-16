@@ -1,4 +1,4 @@
-package custom_event;
+package component;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -6,17 +6,17 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class JPanelWithBackground extends JPanel
+public class PanelWithImageBG extends JPanel
 {
 
     private Image backgroundImage;
 
-    public JPanelWithBackground(int width, int height, String direct)
+    public PanelWithImageBG(int width, int height, String nameBG)
     {
         super();
         try
         {
-            this.backgroundImage = ImageIO.read(new File("src/icon_image/" + direct + "_background.png"));
+            this.backgroundImage = ImageIO.read(new File("src/icon_image/" + nameBG + "_background.png"));
             this.backgroundImage = this.backgroundImage.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         }
         catch (IOException e)
