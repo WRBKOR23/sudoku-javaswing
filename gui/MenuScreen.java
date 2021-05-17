@@ -160,13 +160,12 @@ public class MenuScreen extends PanelWithImageBG
 
     private JPanel createPanelWaitScreen()
     {
-        PanelWithImageBG panel = new PanelWithImageBG(310, 646, "menu4");
+        PanelWithImageBG panel = new PanelWithImageBG(310, 646, "menu");
         panel.setPreferredSize(new Dimension(300, 100));
 
         JLabel userNameLabel = new JLabel(" Enter player name: ");
         userNameLabel.setFont(new Font("arial", Font.BOLD, 30));
         userNameLabel.setForeground(Color.decode("#2c2c62"));
-
 
         panel.add(Box.createRigidArea(new Dimension(300, 220)));
         panel.add(userNameLabel);
