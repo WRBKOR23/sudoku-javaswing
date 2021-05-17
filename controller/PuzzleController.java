@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PuzzleSetUp
+public class PuzzleController
 {
     private final Validate validate;
 
@@ -29,7 +29,7 @@ public class PuzzleSetUp
         return nodeList;
     }
 
-    public PuzzleSetUp()
+    public PuzzleController()
     {
         for (int j = 0; j < 81; j++)
         {

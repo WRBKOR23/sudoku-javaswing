@@ -98,37 +98,4 @@ public class Validate
         }
         return true;
     }
-
-    public void printPz()
-    {
-        System.out.print("  | ");
-        for (int i = 0; i < 9; i++)
-        {
-            System.out.print((i + 1) + "  ");
-        }
-        System.out.println();
-
-
-        System.out.print("----");
-        for (int i = 0; i < 9; i++)
-        {
-            System.out.print("---");
-        }
-        System.out.println();
-
-        int i = 1;
-        for (char[] ints : this.puzzleAnswer)
-        {
-            System.out.print(i + " | ");
-            for (char anInt : ints)
-            {
-                System.out.print((anInt != ' ' ? anInt : "_") + "  ");
-            }
-            System.out.println();
-            i++;
-        }
-
-        System.out.println();
-    }
-
 }

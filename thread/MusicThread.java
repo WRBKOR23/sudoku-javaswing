@@ -1,6 +1,6 @@
 package thread;
 
-import controller.ThreadControl;
+import controller.ThreadController;
 
 import jaco.mp3.player.MP3Player;
 
@@ -9,15 +9,15 @@ import java.util.concurrent.TimeUnit;
 
 public class MusicThread extends Thread
 {
-    private final ThreadControl threadControl;
+    private final ThreadController threadController;
 
-    private volatile boolean forceStop = false;
+    private volatile boolean forceStop = true;
     private volatile boolean forceSkip = false;
 
 
-    public MusicThread(ThreadControl threadControl)
+    public MusicThread(ThreadController threadController)
     {
-        this.threadControl = threadControl;
+        this.threadController = threadController;
     }
 
     public boolean isForceStop()
@@ -53,7 +53,7 @@ public class MusicThread extends Thread
                 if (forceStop)
                 {
                     mp3.pause();
-                    threadControl.hold();
+                    threadController.hold();
                 }
 
                 if ((mp3.isStopped() || mp3.isPaused()) &&
@@ -80,6 +80,6 @@ public class MusicThread extends Thread
 
     public void wake()
     {
-        threadControl.wake();
+        threadController.wake();
     }
 }

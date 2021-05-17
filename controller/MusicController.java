@@ -2,15 +2,15 @@ package controller;
 
 import thread.MusicThread;
 
-public class MusicControl
+public class MusicController
 {
     private final MusicThread musicThread;
-    private final ThreadControl threadControl;
+    private final ThreadController threadController;
 
-    public MusicControl()
+    public MusicController()
     {
-        this.threadControl = new ThreadControl();
-        this.musicThread   = new MusicThread(threadControl);
+        this.threadController = new ThreadController();
+        this.musicThread      = new MusicThread(threadController);
     }
 
     public void start()

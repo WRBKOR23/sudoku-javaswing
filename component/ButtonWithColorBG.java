@@ -5,19 +5,20 @@ import java.awt.*;
 
 public class ButtonWithColorBG extends JButton
 {
-    public ButtonWithColorBG(String nameButton, int width, int height, int fontSize, Color color)
+    public ButtonWithColorBG(String nameButton, int width, int height,
+                             int fontSize, Color bgColor, Color fgColor)
     {
         super(nameButton);
-        _draw(width, height, fontSize, color);
+        _draw(width, height, fontSize, bgColor, fgColor);
     }
 
-    private void _draw(int width, int height, int fontSize, Color color)
+    private void _draw(int width, int height, int fontSize, Color bgColor, Color fgColor)
     {
         this.setPreferredSize(new Dimension(width, height));
         this.setOpaque(true);
-        this.setBackground(color);
+        this.setBackground(bgColor);
         this.setBorder(BorderFactory.createLineBorder(Color.white, 3, false));
         this.setFont(new Font("arial", Font.BOLD, fontSize));
-        this.setForeground(Color.white);
+        this.setForeground(fgColor);
     }
 }

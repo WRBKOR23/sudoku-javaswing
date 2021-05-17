@@ -1,4 +1,4 @@
-package gui;
+package component;
 
 import javax.swing.*;
 import java.util.Vector;

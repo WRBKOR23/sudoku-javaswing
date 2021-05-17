@@ -1,6 +1,6 @@
 package controller;
 
-public class ThreadControl
+public class ThreadController
 {
     public synchronized void hold() throws InterruptedException
     {

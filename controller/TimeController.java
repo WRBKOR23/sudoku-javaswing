@@ -2,15 +2,15 @@ package controller;
 
 import thread.TimeThread;
 
-public class TimeControl
+public class TimeController
 {
     private final TimeThread timeThread;
-    private final ThreadControl threadControl;
+    private final ThreadController threadController;
 
-    public TimeControl()
+    public TimeController()
     {
-        this.threadControl = new ThreadControl();
-        this.timeThread    = new TimeThread(threadControl);
+        this.threadController = new ThreadController();
+        this.timeThread       = new TimeThread(threadController);
     }
 
     public void start()

@@ -1,8 +1,7 @@
 package thread;
 
-import config.Constants;
-import controller.ThreadControl;
-import custom_event.GradientLabel;
+import component.Label;
+import controller.ThreadController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +9,17 @@ import java.util.concurrent.TimeUnit;
 
 public class TimeThread extends Thread
 {
-    private final ThreadControl threadControl;
+    private final ThreadController threadController;
     private volatile boolean forceStop = true;
 
     private long time;
     private final JLabel clockLabel;
 
-    public TimeThread(ThreadControl threadControl)
+    public TimeThread(ThreadController threadController)
     {
-        this.threadControl = threadControl;
-        clockLabel = new JLabel("00:00:00", SwingConstants.CENTER);
+        this.threadController = threadController;
+        clockLabel            = new Label("00:00:00", 150, 50, 25,
+                                          Color.decode("#fd5f92"), Color.decode("#2c2c62"));
     }
 
     public void setForceStop(boolean forceStop)
@@ -41,7 +41,7 @@ public class TimeThread extends Thread
             {
                 if (forceStop)
                 {
-                    threadControl.hold();
+                    threadController.hold();
                 }
                 TimeUnit.MILLISECONDS.sleep(1000);
                 clockLabel.setText(convertToTime(++time));
@@ -55,7 +55,7 @@ public class TimeThread extends Thread
 
     public void wake()
     {
-        threadControl.wake();
+        threadController.wake();
     }
 
     public String convertToTime(long t)

@@ -1,5 +1,6 @@
 package gui;
 
+import component.CustomTable;
 import controller.AchievementController;
 
 import javax.swing.*;
@@ -10,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class DisplayAchievementTable extends JFrame
+public class AchievementTable extends JFrame
 {
-    public DisplayAchievementTable(String title) throws HeadlessException
+    public AchievementTable(String title) throws HeadlessException
     {
         super(title);
 
@@ -99,6 +100,6 @@ public class DisplayAchievementTable extends JFrame
 
     public static void main(String[] args)
     {
-        DisplayAchievementTable d = new DisplayAchievementTable("fsdf");
+        AchievementTable d = new AchievementTable("fsdf");
     }
 }
