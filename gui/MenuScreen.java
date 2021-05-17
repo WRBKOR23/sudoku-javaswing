@@ -23,34 +23,34 @@ import java.io.IOException;
 public class MenuScreen extends PanelWithImageBG
 {
     // player name field
-    private JTextField playerNameField;
+    private TextField playerNameField;
     // confirm button
-    private JButton confirmBt;
+    private ButtonWithColorBG confirmBt;
 
     // feature button
-    private JButton hintBt;
-    private JButton checkBt;
-    private JButton musicBt;
-    private JButton introBt;
-    private JButton achievBt;
+    private ButtonWithImageBG hintBt;
+    private ButtonWithImageBG checkBt;
+    private ButtonWithImageBG musicBt;
+    private ButtonWithImageBG introBt;
+    private ButtonWithImageBG achievBt;
 
     // control button
-    private JButton resumeBt;
-    private JButton pauseBt;
+    private ButtonWithImageBG resumeBt;
+    private ButtonWithImageBG pauseBt;
 
     // mode button
-    private JButton easyModeBt;
-    private JButton normalModeBt;
-    private JButton hardModeBt;
-    private JButton challengeModeBt;
+    private ButtonWithColorBG easyModeBt;
+    private ButtonWithColorBG normalModeBt;
+    private ButtonWithColorBG hardModeBt;
+    private ButtonWithColorBG challengeModeBt;
 
     // time label
-    JLabel clockLabel;
+    Label clockLabel;
 
     // mode label
-    JLabel modeLabel;
+    Label modeLabel;
 
-    public MenuScreen(JLabel clockLabel)
+    public MenuScreen(Label clockLabel)
     {
         super(310, 646, "menu1");
 
@@ -60,7 +60,7 @@ public class MenuScreen extends PanelWithImageBG
         waitScreen();
     }
 
-    public JTextField getPlayerNameField()
+    public TextField getPlayerNameField()
     {
         return playerNameField;
     }
@@ -70,57 +70,57 @@ public class MenuScreen extends PanelWithImageBG
         return confirmBt;
     }
 
-    public JButton getHintBt()
+    public ButtonWithImageBG getHintBt()
     {
         return hintBt;
     }
 
-    public JButton getCheckBt()
+    public ButtonWithImageBG getCheckBt()
     {
         return checkBt;
     }
 
-    public JButton getMusicBt()
+    public ButtonWithImageBG getMusicBt()
     {
         return musicBt;
     }
 
-    public JButton getIntroBt()
+    public ButtonWithImageBG getIntroBt()
     {
         return introBt;
     }
 
-    public JButton getAchievBt()
+    public ButtonWithImageBG getAchievBt()
     {
         return achievBt;
     }
 
-    public JButton getResumeBt()
+    public ButtonWithImageBG getResumeBt()
     {
         return resumeBt;
     }
 
-    public JButton getPauseBt()
+    public ButtonWithImageBG getPauseBt()
     {
         return pauseBt;
     }
 
-    public JButton getEasyModeBt()
+    public ButtonWithColorBG getEasyModeBt()
     {
         return easyModeBt;
     }
 
-    public JButton getNormalModeBt()
+    public ButtonWithColorBG getNormalModeBt()
     {
         return normalModeBt;
     }
 
-    public JButton getHardModeBt()
+    public ButtonWithColorBG getHardModeBt()
     {
         return hardModeBt;
     }
 
-    public JButton getChallengeModeBt()
+    public ButtonWithColorBG getChallengeModeBt()
     {
         return challengeModeBt;
     }
@@ -320,30 +320,9 @@ public class MenuScreen extends PanelWithImageBG
 
     //------------------------------------------------------------
 
-    private Image getIconButton(String nameButton, int size)
-    {
-        String directory = "src/icon_image/" + nameButton + "_button.png";
-        Image  img       = null;
-
-        try
-        {
-            img = ImageIO.read(new File(directory));
-
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        assert img != null;
-        img = img.getScaledInstance(size, size, Image.SCALE_SMOOTH);
-
-        return img;
-    }
-
     public void changeMusicButtonIcon(String buttonName)
     {
-        Icon icon = new ImageIcon((getIconButton(buttonName, 40)));
-        musicBt.setIcon(icon);
+        musicBt.setIconImage(buttonName, 40, 40);
     }
 
 

@@ -13,7 +13,7 @@ public class TimeThread extends Thread
     private volatile boolean forceStop = true;
 
     private long time;
-    private final JLabel clockLabel;
+    private final Label clockLabel;
 
     public TimeThread(ThreadController threadController)
     {
@@ -80,7 +80,7 @@ public class TimeThread extends Thread
         this.time = time;
     }
 
-    public JLabel getClockLabel()
+    public Label getClockLabel()
     {
         return clockLabel;
     }
