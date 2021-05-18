@@ -1,6 +1,7 @@
 package controller;
 
 import model.NodeModel;
+import utils.PuzzlesFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,10 +12,10 @@ public class PuzzleController
 {
     private final Validate validate;
 
-    private static final String FILE_PATH_EASY = "D:/Sudoku/src/puzzles/easy_mode.txt";
-    private static final String FILE_PATH_NORMAL = "D:/Sudoku/src/puzzles/normal_mode.txt";
-    private static final String FILE_PATH_HARD = "D:/Sudoku/src/puzzles/hard_mode.txt";
-    private static final String FILE_PATH_CHALLENGE = "D:/Sudoku/src/puzzles/challenge_mode.txt";
+//    private static final String FILE_PATH_EASY = "src/puzzles/easy_mode.txt";
+//    private static final String FILE_PATH_NORMAL = "src/puzzles/normal_mode.txt";
+//    private static final String FILE_PATH_HARD = "src/puzzles/hard_mode.txt";
+//    private static final String FILE_PATH_CHALLENGE = "src/puzzles/challenge_mode.txt";
 
     private ArrayList<String> easyList;
     private ArrayList<String> normalList;
@@ -44,10 +45,10 @@ public class PuzzleController
 
     private void setUpPuzzles()
     {
-        easyList      = getAllPuzzles(FILE_PATH_EASY);
-        normalList    = getAllPuzzles(FILE_PATH_NORMAL);
-        hardList      = getAllPuzzles(FILE_PATH_HARD);
-        challengeList = getAllPuzzles(FILE_PATH_CHALLENGE);
+        easyList      = getAllPuzzles("easy");
+        normalList    = getAllPuzzles("normal");
+        hardList      = getAllPuzzles("hard");
+        challengeList = getAllPuzzles("challenge");
     }
 
     public boolean changePzArr(String mode)
@@ -55,28 +56,13 @@ public class PuzzleController
         return setPzArr(mode);
     }
 
-    private ArrayList<String> getAllPuzzles(String path)
+    private ArrayList<String> getAllPuzzles(String mode)
     {
-        ArrayList<String> list = new ArrayList<>();
 
-        try
-        {
-            File file = new File(path);
-            Scanner sc = new Scanner(file);
+        ArrayList<String> list;
+        list = PuzzlesFileUtils.readPuzzles(mode);
 
-            while (sc.hasNextLine())
-            {
-                list.add(sc.nextLine());
-            }
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-
-        } finally
-        {
-            return list;
-        }
+        return list;
     }
 
     public boolean setPzArr(String mode)
@@ -145,7 +131,6 @@ public class PuzzleController
                 nodeList.get(i).setCol(k);
                 nodeList.get(i).setVal(input.charAt(i));
                 nodeList.get(i).setImmutable(nodeList.get(i).getVal() != ' ');
-
                 i++;
             }
         }

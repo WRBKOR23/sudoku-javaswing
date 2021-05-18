@@ -41,7 +41,7 @@ public class MusicThread extends Thread
         MP3Player mp3 = new MP3Player();
         for (int i = 1; i < 13; i++)
         {
-            mp3.addToPlayList(new File("D:/Sudoku/src/music/" + i + ".mp3"));
+            mp3.addToPlayList(new File("src/music/" + i + ".mp3"));
         }
         mp3.setShuffle(true);
         mp3.play();

@@ -1,5 +1,7 @@
 package component;
 
+import utils.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,7 +19,7 @@ public class ButtonWithColorBG extends JButton
         this.setPreferredSize(new Dimension(width, height));
         this.setOpaque(true);
         this.setBackground(bgColor);
-        this.setBorder(BorderFactory.createLineBorder(Color.white, 3, false));
+        this.setBorder(BorderFactory.createLineBorder(Constants.UIConfiguration.LINE_BORDER_2, 3, false));
         this.setFont(new Font("arial", Font.BOLD, fontSize));
         this.setForeground(fgColor);
     }

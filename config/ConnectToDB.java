@@ -1,5 +1,7 @@
 package config;
 
+import utils.Constants;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,12 +14,15 @@ public class ConnectToDB
     {
         try
         {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/temp?serverTimezone=UTC";
-            String user = "WRBKOR23";
-            String password = "hai210501";
+            Class.forName(Constants.InitConfiguration.DB_DRIVER);
+            String url = Constants.InitConfiguration.DB_URL + Constants.InitConfiguration.DB_NAME;
+            url += "?" + Constants.InitConfiguration.DB_TIME_ZONE;
+
+            String user     = Constants.InitConfiguration.DB_USER;
+            String password = Constants.InitConfiguration.DB_PASS;
             connect = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException e)
+        }
+        catch (ClassNotFoundException | SQLException e)
         {
             System.out.println("Connection fail");
             e.printStackTrace();

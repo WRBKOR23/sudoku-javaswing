@@ -5,6 +5,7 @@ import component.PanelWithImageBG;
 import component.TextFields;
 import controller.PuzzleController;
 import model.NodeModel;
+import utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +104,7 @@ public class PuzzleScreen extends JPanel
         {
             JPanel extraPanel = new JPanel();
             extraPanel.setLayout(new GridLayout(3, 3, 1, 1));
-            extraPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#ff33cc")));
+            extraPanel.setBorder(BorderFactory.createLineBorder(Constants.UIConfiguration.LINE_BORDER_3));
 
             ArrayList<NodeModel> temp = puzzleController.getNodeList();
             for (int j = (i / 3) * 3; j < (i / 3) * 3 + 3; j++)
@@ -131,7 +132,8 @@ public class PuzzleScreen extends JPanel
 
     private JLabel uneditableNode(String value)
     {
-        JLabel label = new Label(value, 70, 70, 40, Color.decode("#0f81d8"), Color.white);
+        JLabel label = new Label(value, 70, 70, 40,
+                                 Constants.UIConfiguration.BG_COLOR_2, Constants.UIConfiguration.FG_GROUND_3);
 
         return label;
     }

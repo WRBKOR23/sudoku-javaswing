@@ -1,9 +1,8 @@
 package component;
 
-import component.TextField;
-
+import utils.Constants;
 import javax.swing.*;
-import java.awt.*;
+
 import java.util.ArrayList;
 
 public class TextFields
@@ -19,7 +18,8 @@ public class TextFields
     {
         for (int i = 0; i < 81; i++)
         {
-            textFieldList.add(new TextField(70, 70, 40, Color.white, Color.decode("#0f81d8")));
+            textFieldList.add(new TextField(70, 70, 40,
+                                            Constants.UIConfiguration.BG_COLOR_3, Constants.UIConfiguration.FG_GROUND_1));
         }
     }
 

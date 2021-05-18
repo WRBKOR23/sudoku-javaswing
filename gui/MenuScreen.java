@@ -10,6 +10,7 @@ import controller.TimeController;
 import custom_event.CustomActionListener;
 import custom_event.CustomMouseListener;
 import custom_event.CustomWindowListener;
+import utils.Constants;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,7 +24,7 @@ import java.io.IOException;
 public class MenuScreen extends PanelWithImageBG
 {
     // player name field
-    private TextField playerNameField;
+    private TextField         playerNameField;
     // confirm button
     private ButtonWithColorBG confirmBt;
 
@@ -127,8 +128,11 @@ public class MenuScreen extends PanelWithImageBG
 
     private void generateComponents()
     {
-        playerNameField = new TextField(230, 30, 20, Color.white, Color.decode("#2c2c62"));
-        confirmBt       = new ButtonWithColorBG("CONFIRM", 100, 40, 18, Color.decode("#fd5f92"), Color.decode("#2c2c62"));
+        playerNameField = new TextField(230, 30, 20,
+                                        Constants.UIConfiguration.BG_COLOR_3, Constants.UIConfiguration.FG_GROUND_2);
+
+        confirmBt = new ButtonWithColorBG("CONFIRM", 100, 40, 18,
+                                          Constants.UIConfiguration.BG_COLOR_1, Constants.UIConfiguration.FG_GROUND_2);
 
         hintBt   = new ButtonWithImageBG("hint", false, 40, 40);
         checkBt  = new ButtonWithImageBG("check", false, 40, 40);
@@ -139,12 +143,20 @@ public class MenuScreen extends PanelWithImageBG
         resumeBt = new ButtonWithImageBG("resume", true, 50, 50);
         pauseBt  = new ButtonWithImageBG("pause", true, 50, 50);
 
-        easyModeBt      = new ButtonWithColorBG("Easy", 130, 50, 18, Color.decode("#1cde12"), Color.white);
-        normalModeBt    = new ButtonWithColorBG("Normal", 130, 50, 18, Color.decode("#c312de"), Color.white);
-        hardModeBt      = new ButtonWithColorBG("Hard", 130, 50, 18, Color.decode("#ff9317"), Color.white);
-        challengeModeBt = new ButtonWithColorBG("Challenge", 130, 50, 18, Color.decode("#ff1717"), Color.white);
+        easyModeBt = new ButtonWithColorBG("Easy", 130, 50, 18,
+                                           Constants.UIConfiguration.EASY_BUTTON_BG, Constants.UIConfiguration.FG_GROUND_3);
 
-        modeLabel = new Label("None", 150, 50, 25, Color.decode("#fd5f92"), Color.decode("#2c2c62"));
+        normalModeBt = new ButtonWithColorBG("Normal", 130, 50, 18,
+                                             Constants.UIConfiguration.NORMAL_BUTTON_BG, Constants.UIConfiguration.FG_GROUND_3);
+
+        hardModeBt = new ButtonWithColorBG("Hard", 130, 50, 18,
+                                           Constants.UIConfiguration.HARD_BUTTON_BG, Constants.UIConfiguration.FG_GROUND_3);
+
+        challengeModeBt = new ButtonWithColorBG("Challenge", 130, 50, 18,
+                                                Constants.UIConfiguration.CHALLENGE_BUTTON_BG, Constants.UIConfiguration.FG_GROUND_3);
+
+        modeLabel = new Label("None", 150, 50, 25,
+                              Color.decode("#fd5f92"), Color.decode("#2c2c62"));
     }
 
     public void waitScreen()
@@ -165,7 +177,7 @@ public class MenuScreen extends PanelWithImageBG
 
         JLabel userNameLabel = new JLabel(" Enter player name: ");
         userNameLabel.setFont(new Font("arial", Font.BOLD, 30));
-        userNameLabel.setForeground(Color.decode("#2c2c62"));
+        userNameLabel.setForeground(Constants.UIConfiguration.FG_GROUND_2);
 
         panel.add(Box.createRigidArea(new Dimension(302, 220)));
         panel.add(userNameLabel);
@@ -229,11 +241,13 @@ public class MenuScreen extends PanelWithImageBG
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         if (pos == 1)
         {
-            panel.setBorder(BorderFactory.createMatteBorder(4, 0, 4, 2, Color.decode("#2197f1")));
+            panel.setBorder(BorderFactory.createMatteBorder(4, 0, 4, 2,
+                                                            Constants.UIConfiguration.LINE_BORDER_1));
         }
         else
         {
-            panel.setBorder(BorderFactory.createMatteBorder(4, 2, 4, 0, Color.decode("#2197f1")));
+            panel.setBorder(BorderFactory.createMatteBorder(4, 2, 4, 0,
+                                                            Constants.UIConfiguration.LINE_BORDER_1));
         }
 
         panel.add(_createTitlePanel(str));
@@ -265,7 +279,7 @@ public class MenuScreen extends PanelWithImageBG
     private JLabel _createLabel(String str)
     {
         JLabel label = new Label(str, 150, 50, 25,
-                                 Color.decode("#fd5f92"), Color.decode("#2c2c62"));
+                                 Constants.UIConfiguration.BG_COLOR_1, Constants.UIConfiguration.FG_GROUND_2);
 
         return label;
     }
