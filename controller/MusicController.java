@@ -4,7 +4,7 @@ import thread.MusicThread;
 
 public class MusicController
 {
-    private final MusicThread musicThread;
+    private final MusicThread      musicThread;
     private final ThreadController threadController;
 
     public MusicController()

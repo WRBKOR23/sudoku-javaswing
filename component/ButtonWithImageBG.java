@@ -27,7 +27,7 @@ public class ButtonWithImageBG extends JButton
     public void setIconImage(String nameIcon, int width, int height)
     {
         ImageIcon imageIcon = new ImageIcon(_getIconButton(nameIcon, width, height));
-        Icon icon = imageIcon;
+        Icon      icon      = imageIcon;
         setIcon(icon);
     }
 

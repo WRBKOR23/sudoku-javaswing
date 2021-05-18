@@ -4,7 +4,7 @@ import thread.TimeThread;
 
 public class TimeController
 {
-    private final TimeThread timeThread;
+    private final TimeThread       timeThread;
     private final ThreadController threadController;
 
     public TimeController()

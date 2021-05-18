@@ -9,10 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 public class TimeThread extends Thread
 {
-    private final ThreadController threadController;
-    private volatile boolean forceStop = true;
+    private final    ThreadController threadController;
+    private volatile boolean          forceStop = true;
 
-    private long time;
+    private       long  time;
     private final Label clockLabel;
 
     public TimeThread(ThreadController threadController)
@@ -46,7 +46,8 @@ public class TimeThread extends Thread
                 TimeUnit.MILLISECONDS.sleep(1000);
                 clockLabel.setText(convertToTime(++time));
 
-            } catch (InterruptedException e)
+            }
+            catch (InterruptedException e)
             {
                 e.printStackTrace();
             }

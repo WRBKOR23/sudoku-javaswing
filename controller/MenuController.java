@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class MenuController
 {
-    private final TimeController timeController;
+    private final TimeController  timeController;
     private final MusicController musicController;
 
     public MenuController(TimeController timeController, MusicController musicController)

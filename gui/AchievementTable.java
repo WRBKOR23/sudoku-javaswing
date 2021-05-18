@@ -51,8 +51,8 @@ public class AchievementTable extends JFrame
 
         ResultSet resultSet = achievementController.getData();
 
-        Vector<Vector<Object>> row = new Vector<>();
-        Vector<Object> title = new Vector<>();
+        Vector<Vector<Object>> row   = new Vector<>();
+        Vector<Object>         title = new Vector<>();
         title.add("Player Name");
         title.add("Mode");
         title.add("Hints");
@@ -72,8 +72,8 @@ public class AchievementTable extends JFrame
 
                 row.add(data);
             }
-
-        } catch (SQLException ex)
+        }
+        catch (SQLException ex)
         {
             ex.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class AchievementTable extends JFrame
         table.setRowHeight(30);
 
         JTableHeader tableHeader = table.getTableHeader();
-        Font headerFont = new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 20);
+        Font         headerFont  = new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 20);
         tableHeader.setFont(headerFont);
         tableHeader.setPreferredSize(new Dimension(10, 40));
         return table;

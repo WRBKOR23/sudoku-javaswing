@@ -81,11 +81,17 @@ public class Validate
     {
         for (int i = 0; i < 9; i++)
         {
-            if (temp[x][i] == k) return false;
+            if (temp[x][i] == k)
+            {
+                return false;
+            }
         }
         for (int i = 0; i < 9; i++)
         {
-            if (temp[i][y] == k) return false;
+            if (temp[i][y] == k)
+            {
+                return false;
+            }
         }
 
         int a = x / 3, b = y / 3;
@@ -93,7 +99,10 @@ public class Validate
         {
             for (int j = 3 * b; j < 3 * b + 3; j++)
             {
-                if (temp[i][j] == k) return false;
+                if (temp[i][j] == k)
+                {
+                    return false;
+                }
             }
         }
         return true;

@@ -19,14 +19,14 @@ import java.awt.event.WindowEvent;
 
 public class App extends JFrame
 {
-    private final MenuScreen menuScreen;
+    private final MenuScreen   menuScreen;
     private final PuzzleScreen puzzleScreen;
 
-    private GameControl gameControl;
+    private GameControl                gameControl;
     private MusicControl_MouseTracking musicControl_MouseTracking;
-    private ChangeAchievementBtStatus changeAchievementBtStatus;
-    private MouseTracking mouseTracking;
-    private HotKeyConfirm hotKeyConfirm;
+    private ChangeAchievementBtStatus  changeAchievementBtStatus;
+    private MouseTracking              mouseTracking;
+    private HotKeyConfirm              hotKeyConfirm;
 
     private final GameController gameController;
 

@@ -15,14 +15,14 @@ import java.util.concurrent.TimeUnit;
 
 public class NodeController
 {
-    private final PuzzleScreen puzzleScreen;
-    private final TimeController timeController;
-    private final AchievementModel achievementModel;
-    private final PuzzleController puzzleController;
+    private final PuzzleScreen          puzzleScreen;
+    private final TimeController        timeController;
+    private final AchievementModel      achievementModel;
+    private final PuzzleController      puzzleController;
     private final ArrayList<JTextField> textFieldList;
 
     private boolean isStart = false;
-    private int currPos;
+    private int     currPos;
 
     public NodeController(PuzzleScreen puzzleScreen, TimeController timeController, AchievementModel achievementModel)
     {

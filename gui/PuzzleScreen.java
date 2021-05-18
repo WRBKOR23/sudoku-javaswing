@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class PuzzleScreen extends JPanel
 {
-    private final JPanel gameScreen;
+    private final JPanel           gameScreen;
     private final PanelWithImageBG waitScreen;
 
     private final PuzzleController puzzleController;
@@ -22,8 +22,8 @@ public class PuzzleScreen extends JPanel
 
     public PuzzleScreen()
     {
-        this.gameScreen  = new JPanel();
-        this.waitScreen  = new PanelWithImageBG(646, 646, "game");
+        this.gameScreen = new JPanel();
+        this.waitScreen = new PanelWithImageBG(646, 646, "game");
 
         this.puzzleController = new PuzzleController();
         this.textFieldList    = new TextFields().getTextFieldList();
@@ -123,7 +123,6 @@ public class PuzzleScreen extends JPanel
 
 
     // ------- MODIFY JTEXTFIELDS --------------------------------------------
-
 
 
     // ----------------------------------------------------------------------------

@@ -8,17 +8,17 @@ public class NodeModel
 
     public NodeModel(int row, int col, char val, boolean isImmutable)
     {
-        this.row = row;
-        this.col = col;
-        this.val = val;
+        this.row         = row;
+        this.col         = col;
+        this.val         = val;
         this.isImmutable = isImmutable;
     }
 
     public NodeModel()
     {
-        this.row = -1;
-        this.col = -1;
-        this.val = ' ';
+        this.row         = -1;
+        this.col         = -1;
+        this.val         = ' ';
         this.isImmutable = false;
     }
 
