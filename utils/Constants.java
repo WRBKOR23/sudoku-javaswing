@@ -12,6 +12,7 @@ public interface Constants
      */
     public static final String INIT_FILE_LOCATION   = "src/config.ini";
     public static final String PUZZLE_FILE_LOCATION = "src/puzzles/";
+    public static final String MUSIC_FILE_LOCATION = "src/music/";
     public static final String DB_DRIVER            = "DB_DRIVER";
     public static final String DB_TIME_ZONE         = "DB_TIME_ZONE";
     public static final String DB_NAME              = "DB_NAME";
