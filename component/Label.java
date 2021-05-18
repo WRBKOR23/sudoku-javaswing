@@ -1,5 +1,7 @@
 package component;
 
+import utils.Constants;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,7 +20,7 @@ public class Label extends JLabel
         this.setHorizontalAlignment(JLabel.CENTER);
         this.setOpaque(true);
         this.setBackground(bgColor);
-        this.setFont(new Font("arial", Font.BOLD, fontSize));
+        this.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, fontSize));
         this.setForeground(fgColor);
     }
 }

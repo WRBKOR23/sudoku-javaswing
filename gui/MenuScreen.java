@@ -176,7 +176,7 @@ public class MenuScreen extends PanelWithImageBG
         panel.setPreferredSize(new Dimension(302, 100));
 
         JLabel userNameLabel = new JLabel(" Enter player name: ");
-        userNameLabel.setFont(new Font("arial", Font.BOLD, 30));
+        userNameLabel.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 30));
         userNameLabel.setForeground(Constants.UIConfiguration.FG_GROUND_2);
 
         panel.add(Box.createRigidArea(new Dimension(302, 220)));

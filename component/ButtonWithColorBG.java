@@ -20,7 +20,7 @@ public class ButtonWithColorBG extends JButton
         this.setOpaque(true);
         this.setBackground(bgColor);
         this.setBorder(BorderFactory.createLineBorder(Constants.UIConfiguration.LINE_BORDER_2, 3, false));
-        this.setFont(new Font("arial", Font.BOLD, fontSize));
+        this.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, fontSize));
         this.setForeground(fgColor);
     }
 }

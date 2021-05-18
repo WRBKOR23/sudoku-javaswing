@@ -2,6 +2,7 @@ package gui;
 
 import component.CustomTable;
 import controller.AchievementController;
+import utils.Constants;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -36,7 +37,7 @@ public class AchievementTable extends JFrame
         JLabel titleLabel = new JLabel("ACHIEVEMENT");
         titleLabel.setPreferredSize(new Dimension(300, 70));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        titleLabel.setFont(new Font("arial", Font.BOLD, 20));
+        titleLabel.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 20));
 
 
         titlePanel.add(titleLabel);
@@ -88,11 +89,11 @@ public class AchievementTable extends JFrame
 
         table.setDefaultRenderer(String.class, centerRenderer);
         table.setDefaultRenderer(Integer.class, centerRenderer);
-        table.setFont(new Font("arial", Font.PLAIN, 20));
+        table.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.PLAIN, 20));
         table.setRowHeight(30);
 
         JTableHeader tableHeader = table.getTableHeader();
-        Font headerFont = new Font("arial", Font.BOLD, 20);
+        Font headerFont = new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 20);
         tableHeader.setFont(headerFont);
         tableHeader.setPreferredSize(new Dimension(10, 40));
         return table;

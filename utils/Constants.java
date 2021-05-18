@@ -8,7 +8,7 @@ import java.util.List;
 public interface Constants
 {
     /*
-     * Configuration file - read the init file.
+     * Configuration variable.
      */
     public static final String INIT_FILE_LOCATION = "src/config.ini";
     public static final String PUZZLE_FILE_LOCATION = "src/puzzles/";
@@ -20,7 +20,7 @@ public interface Constants
     public static final String DB_PASS = "DB_PASS";
 
     /*
-     * Default value and default game
+     * Default value in game
      */
     public class InitConfiguration
     {
@@ -48,6 +48,8 @@ public interface Constants
         public static Color LINE_BORDER_1 = Color.decode("#2197f1");
         public static Color LINE_BORDER_2 = Color.white;
         public static Color LINE_BORDER_3 = Color.decode("#ff33cc");
+        public static String FONT_1 = "arial";
+
     }
 
 
