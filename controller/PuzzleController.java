@@ -12,11 +12,6 @@ public class PuzzleController
 {
     private final Validate validate;
 
-//    private static final String FILE_PATH_EASY = "src/puzzles/easy_mode.txt";
-//    private static final String FILE_PATH_NORMAL = "src/puzzles/normal_mode.txt";
-//    private static final String FILE_PATH_HARD = "src/puzzles/hard_mode.txt";
-//    private static final String FILE_PATH_CHALLENGE = "src/puzzles/challenge_mode.txt";
-
     private ArrayList<String> easyList;
     private ArrayList<String> normalList;
     private ArrayList<String> hardList;

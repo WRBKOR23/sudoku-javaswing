@@ -68,30 +68,6 @@ public class PuzzleScreen extends JPanel
         this.waitScreen.setPreferredSize(new Dimension(646, 646));
     }
 
-    public void waitScreen()
-    {
-        removeAll();
-        revalidate();
-        repaint();
-
-        this.waitScreen.setLayout(new GridLayout(3, 3, 1, 1));
-
-        for (int i = 0; i < 9; i++)
-        {
-            JPanel extraPanel = new JPanel();
-            extraPanel.setLayout(new GridLayout(3, 3, 1, 1));
-            extraPanel.setBorder(BorderFactory.createLineBorder(Color.red));
-
-            for (int j = 0; j < 9; j++)
-            {
-                extraPanel.add(uneditableNode(""));
-            }
-
-            this.waitScreen.add(extraPanel);
-        }
-    }
-
-
     public void initGUI()
     {
         this.gameScreen.removeAll();
