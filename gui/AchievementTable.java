@@ -77,30 +77,12 @@ public class AchievementTable extends JFrame
         {
             ex.printStackTrace();
         }
-        return fillData(row, title);
-    }
 
-    private JTable fillData(Vector<Vector<Object>> row, Vector<Object> title)
-    {
-        CustomTable table = new CustomTable(row, title);
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        table.setDefaultRenderer(String.class, centerRenderer);
-        table.setDefaultRenderer(Integer.class, centerRenderer);
-        table.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.PLAIN, 20));
-        table.setRowHeight(30);
-
-        JTableHeader tableHeader = table.getTableHeader();
-        Font         headerFont  = new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 20);
-        tableHeader.setFont(headerFont);
-        tableHeader.setPreferredSize(new Dimension(10, 40));
-        return table;
+        return new CustomTable(row, title);
     }
 
     public static void main(String[] args)
     {
-        AchievementTable d = new AchievementTable("fsdf");
+        AchievementTable d = new AchievementTable("Achievement");
     }
 }

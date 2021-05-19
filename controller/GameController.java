@@ -93,7 +93,7 @@ public class GameController
 
     public void introductions()
     {
-
+        menuController.introduction();
     }
 
     public void achievement()
