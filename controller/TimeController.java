@@ -18,7 +18,7 @@ public class TimeController
         this.timeThread.start();
     }
 
-    public void forceStop()
+    public void pause()
     {
         timeThread.setForceStop(true);
     }

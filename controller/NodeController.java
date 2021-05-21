@@ -194,7 +194,7 @@ public class NodeController
             setStatusJTextFields(false);
             setStart(false);
 
-            timeController.forceStop();
+            timeController.pause();
 
 
             JOptionPane.showMessageDialog(null,

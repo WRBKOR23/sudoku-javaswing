@@ -171,8 +171,7 @@ public class App extends JFrame
                 }
 
                 case "achievement" -> {
-                    AchievementTable achievementTable = new AchievementTable("Achievement");
-                    achievementTable.addWindowListener(changeAchievementBtStatus);
+                    gameController.achievement(menuScreen.getAchievBt());
                 }
 
             }

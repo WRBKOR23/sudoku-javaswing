@@ -2,27 +2,29 @@ package gui;
 
 import component.CustomTable;
 import controller.AchievementController;
+import custom_event.CustomWindowListener;
 import utils.Constants;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
 public class AchievementTable extends JFrame
 {
-    public AchievementTable(String title) throws HeadlessException
+    private final JButton button;
+    public AchievementTable(String title, JButton button) throws HeadlessException
     {
         super(title);
-
+        this.button = button;
         JScrollPane scrollPane = new JScrollPane(createTable());
 
         add(createTitle(), BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
 
+        addWindowListener(new ChangeAchievementBtStatus());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(800, 500);
@@ -51,8 +53,8 @@ public class AchievementTable extends JFrame
 
         ResultSet resultSet = achievementController.getData();
 
-        Vector<Vector<Object>> row   = new Vector<>();
-        Vector<Object>         title = new Vector<>();
+        Vector<Vector<Object>> row = new Vector<>();
+        Vector<Object> title = new Vector<>();
         title.add("Player Name");
         title.add("Mode");
         title.add("Hints");
@@ -81,8 +83,18 @@ public class AchievementTable extends JFrame
         return new CustomTable(row, title);
     }
 
-    public static void main(String[] args)
+    class ChangeAchievementBtStatus extends CustomWindowListener
     {
-        AchievementTable d = new AchievementTable("Achievement");
+        @Override
+        public void windowOpened(WindowEvent e)
+        {
+            button.setEnabled(false);
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e)
+        {
+            button.setEnabled(true);
+        }
     }
 }

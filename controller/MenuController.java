@@ -1,7 +1,11 @@
 package controller;
 
+import custom_event.CustomWindowListener;
+import gui.AchievementTable;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 
 public class MenuController
 {
@@ -53,7 +57,7 @@ public class MenuController
 
     public void pause()
     {
-        timeController.forceStop();
+        timeController.pause();
     }
 
     public boolean turnMusicOnOff()
@@ -77,29 +81,23 @@ public class MenuController
 
     public void introduction()
     {
-//        JScrollPane scrollpane = new JScrollPane(list);
-//        scrollpane.setPreferredSize(new Dimension(300,125));//<-----any size you want
-//        JOptionPane.showMessageDialog(null, scrollpane, "The rules of Sudoku are very simple. " +
-//                                            "In a typical 9x9 Sudoku grid, there are nine rows, " +
-//                                            "nine columns and nine 3x3 boxes. " +
-//                                            "The objective is to fill up the grid with the digits from 1 to 9 " +
-//                                            "so that each digit of 1 through 9 appears only once in each row, " +
-//                                            "each column and each 3x3 box.",
-//                                      "Sudoku rules", JOptionPane.INFORMATION_MESSAGE);
         String[] categories = {
                 "The rules of Sudoku are very simple. In a typical 9x9 Sudoku grid, ",
                 "there are nine rows, nine columns and nine 3x3 boxes. The objective ",
                 "is to fill up the grid with the digits from 1 to 9 so that each digit of 1 ",
-                "through 9 appears only once in each row, each column and each 3x3 box."};
+                "through 9 appears only once in each row, each column and each 3x3 box.", "   ",
+                "Made by: Pham Tien Hai and Pham Viet Hoang Minh"};
         JList list = new JList(categories);
         list.setFont(new Font("arial", Font.BOLD, 16));
         JScrollPane scrollpane = new JScrollPane(list);
-        scrollpane.setPreferredSize(new Dimension(500, 200));
-        JOptionPane.showMessageDialog(null, scrollpane, "Error List",JOptionPane.PLAIN_MESSAGE);
+        scrollpane.setPreferredSize(new Dimension(580, 130));
+        JOptionPane.showMessageDialog(null, scrollpane, "Introduction",JOptionPane.PLAIN_MESSAGE);
     }
 
-    public void achievement()
+    public void achievement(JButton button)
     {
-
+        AchievementTable achievementTable = new AchievementTable("Achievement", button);
     }
+
+
 }

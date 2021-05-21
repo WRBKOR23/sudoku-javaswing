@@ -96,9 +96,9 @@ public class GameController
         menuController.introduction();
     }
 
-    public void achievement()
+    public void achievement(JButton button)
     {
-
+        menuController.achievement(button);
     }
 
     public void resetCurrentPosition()
