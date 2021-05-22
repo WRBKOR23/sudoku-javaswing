@@ -120,6 +120,13 @@ public class App extends JFrame
         add(this.puzzleScreen, BorderLayout.CENTER);
         add(this.menuScreen, BorderLayout.EAST);
 
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        int posX = (width-950)/2;
+        int posY = (height-650)/2;
+
+        setLocation(posX, posY);
         pack();
         setResizable(false);
         setVisible(true);
