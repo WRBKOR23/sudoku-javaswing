@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -222,8 +223,12 @@ public class NodeController
 
         achievementModel.setTime(timeController.getTime());
 
-        ConnectToDB connectToDB = new ConnectToDB();
-        if (connectToDB.getConnect() == null)
+        ConnectToDB connectToDB = null;
+        try
+        {
+            connectToDB = new ConnectToDB();
+        }
+        catch (SQLException throwables)
         {
             _showError();
             return;

@@ -7,6 +7,7 @@ import mvc.gui.AchievementTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class MenuController
 {
@@ -15,7 +16,7 @@ public class MenuController
 
     public MenuController(TimeController timeController, MusicController musicController)
     {
-        this.timeController  = timeController;
+        this.timeController = timeController;
         this.musicController = musicController;
     }
 
@@ -92,13 +93,17 @@ public class MenuController
         list.setFont(new Font("arial", Font.BOLD, 16));
         JScrollPane scrollpane = new JScrollPane(list);
         scrollpane.setPreferredSize(new Dimension(580, 130));
-        JOptionPane.showMessageDialog(null, scrollpane, "Introduction",JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, scrollpane, "Introduction", JOptionPane.PLAIN_MESSAGE);
     }
 
     public void achievement(JButton button)
     {
-        ConnectToDB connectToDB = new ConnectToDB();
-        if (connectToDB.getConnect() == null)
+        ConnectToDB connectToDB = null;
+        try
+        {
+            connectToDB = new ConnectToDB();
+        }
+        catch (SQLException throwables)
         {
             button.setEnabled(true);
             _showError();

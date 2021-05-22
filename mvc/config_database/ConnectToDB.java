@@ -11,7 +11,7 @@ public class ConnectToDB
 {
     private Connection connect = null;
 
-    public ConnectToDB()
+    public ConnectToDB() throws SQLException
     {
         try
         {
@@ -23,7 +23,7 @@ public class ConnectToDB
             String password = Constants.InitConfiguration.DB_PASS;
             connect = DriverManager.getConnection(url, user, password);
         }
-        catch (ClassNotFoundException | SQLException ignored)
+        catch (ClassNotFoundException ignored)
         {
         }
     }
