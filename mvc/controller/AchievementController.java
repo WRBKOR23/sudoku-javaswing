@@ -14,7 +14,7 @@ public class AchievementController
         Connection connection = null;
         PreparedStatement statement = null;
 
-        StringBuilder sql = new StringBuilder("INSERT INTO Achievement (Player_Name,");
+        StringBuilder sql = new StringBuilder("INSERT INTO Achievement_BTL_JAVA (Player_Name,");
         sql.append(" Mode, Number_Of_Hints, Number_Of_Checks, Time)");
         sql.append(" VALUES(?, ?, ?, ?, ?)");
 
@@ -75,7 +75,7 @@ public class AchievementController
         try
         {
             connection = connectToDB.getConnect();
-            String sql = "SELECT Player_Name, Mode, Number_Of_Hints, Number_Of_Checks, Time FROM achievement ORDER BY Time ASC";
+            String sql = "SELECT Player_Name, Mode, Number_Of_Hints, Number_Of_Checks, Time FROM Achievement_BTL_JAVA ORDER BY Time ASC";
 
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             result = statement.executeQuery(sql);
