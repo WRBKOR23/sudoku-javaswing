@@ -1,5 +1,7 @@
-package mvc.controller;
+package mvc.controller.main_controller;
 
+import mvc.controller.thread.music.MusicController;
+import mvc.controller.thread.time.TimeController;
 import mvc.gui.PuzzleScreen;
 import mvc.model.AchievementModel;
 

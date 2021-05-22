@@ -1,7 +1,7 @@
-package mvc.controller.thread;
+package mvc.controller.thread.time;
 
 import mvc.gui.component.Label;
-import mvc.controller.ThreadController;
+import mvc.controller.thread.thread_controller.ThreadController;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;

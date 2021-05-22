@@ -1,6 +1,6 @@
-package mvc.controller;
+package mvc.controller.thread.music;
 
-import mvc.controller.thread.MusicThread;
+import mvc.controller.thread.thread_controller.ThreadController;
 
 public class MusicController
 {

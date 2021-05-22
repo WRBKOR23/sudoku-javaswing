@@ -1,4 +1,4 @@
-package mvc.controller;
+package mvc.controller.main_controller;
 
 import mvc.config_database.ConnectToDB;
 import mvc.model.AchievementModel;

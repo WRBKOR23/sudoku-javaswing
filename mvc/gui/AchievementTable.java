@@ -2,7 +2,7 @@ package mvc.gui;
 
 import mvc.gui.component.CustomTable;
 import mvc.gui.component.Label;
-import mvc.controller.AchievementController;
+import mvc.controller.main_controller.AchievementController;
 import mvc.gui.custom_event.CustomWindowListener;
 import mvc.utils.Constants;
 

@@ -1,6 +1,6 @@
-package mvc.controller.thread;
+package mvc.controller.thread.music;
 
-import mvc.controller.ThreadController;
+import mvc.controller.thread.thread_controller.ThreadController;
 
 import jaco.mp3.player.MP3Player;
 import mvc.utils.Constants;

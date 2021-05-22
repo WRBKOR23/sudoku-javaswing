@@ -1,5 +1,6 @@
-package mvc.controller;
+package mvc.controller.main_controller;
 
+import mvc.controller.thread.time.TimeController;
 import mvc.gui.custom_event.CustomFocusListener;
 import mvc.gui.custom_event.CustomKeyListener;
 import mvc.gui.PuzzleScreen;
@@ -16,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 public class NodeController
 {
     private final PuzzleScreen          puzzleScreen;
-    private final TimeController        timeController;
+    private final TimeController timeController;
     private final AchievementModel      achievementModel;
-    private final PuzzleController      puzzleController;
+    private final PuzzleController puzzleController;
     private final ArrayList<JTextField> textFieldList;
 
     private boolean isStart = false;

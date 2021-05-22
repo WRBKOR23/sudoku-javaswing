@@ -1,5 +1,7 @@
-package mvc.controller;
+package mvc.controller.main_controller;
 
+import mvc.controller.thread.music.MusicController;
+import mvc.controller.thread.time.TimeController;
 import mvc.gui.AchievementTable;
 
 import javax.swing.*;
@@ -7,7 +9,7 @@ import java.awt.*;
 
 public class MenuController
 {
-    private final TimeController  timeController;
+    private final TimeController timeController;
     private final MusicController musicController;
 
     public MenuController(TimeController timeController, MusicController musicController)

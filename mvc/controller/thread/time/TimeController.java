@@ -1,6 +1,6 @@
-package mvc.controller;
+package mvc.controller.thread.time;
 
-import mvc.controller.thread.TimeThread;
+import mvc.controller.thread.thread_controller.ThreadController;
 
 public class TimeController
 {

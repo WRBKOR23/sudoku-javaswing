@@ -3,7 +3,7 @@ package mvc.gui;
 import mvc.gui.component.Label;
 import mvc.gui.component.PanelWithImageBG;
 import mvc.gui.component.TextFields;
-import mvc.controller.PuzzleController;
+import mvc.controller.main_controller.PuzzleController;
 import mvc.model.NodeModel;
 import mvc.utils.Constants;
 

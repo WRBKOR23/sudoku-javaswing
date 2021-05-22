@@ -1,4 +1,4 @@
-package mvc.controller;
+package mvc.controller.thread.thread_controller;
 
 public class ThreadController
 {

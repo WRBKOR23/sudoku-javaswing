@@ -1,8 +1,8 @@
 package mvc.build;
 
-import mvc.controller.GameController;
-import mvc.controller.MusicController;
-import mvc.controller.TimeController;
+import mvc.controller.main_controller.GameController;
+import mvc.controller.thread.music.MusicController;
+import mvc.controller.thread.time.TimeController;
 import mvc.gui.custom_event.CustomActionListener;
 import mvc.gui.custom_event.CustomMouseListener;
 import mvc.gui.custom_event.CustomWindowListener;
