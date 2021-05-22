@@ -7,7 +7,12 @@ import java.sql.*;
 
 public class AchievementController
 {
-    private final ConnectToDB connectToDB = new ConnectToDB();
+    private final ConnectToDB connectToDB;
+
+    public AchievementController(ConnectToDB connectToDB)
+    {
+        this.connectToDB = connectToDB;
+    }
 
     public void insert(AchievementModel achievementModel)
     {

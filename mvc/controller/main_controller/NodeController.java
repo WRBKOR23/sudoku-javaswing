@@ -1,5 +1,6 @@
 package mvc.controller.main_controller;
 
+import mvc.config_database.ConnectToDB;
 import mvc.controller.thread.time.TimeController;
 import mvc.gui.custom_event.CustomFocusListener;
 import mvc.gui.custom_event.CustomKeyListener;
@@ -220,7 +221,7 @@ public class NodeController
         }
         achievementModel.setTime(timeController.getTime());
 
-        AchievementController achievementController = new AchievementController();
+        AchievementController achievementController = new AchievementController(new ConnectToDB());
         achievementController.insert(achievementModel);
     }
 

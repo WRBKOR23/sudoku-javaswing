@@ -177,8 +177,8 @@ public class App extends JFrame
                 }
 
                 case "achievement" -> {
-                    gameController.achievement(menuScreen.getAchievBt());
                     menuScreen.getAchievBt().setEnabled(false);
+                    gameController.achievement(menuScreen.getAchievBt());
                 }
 
             }

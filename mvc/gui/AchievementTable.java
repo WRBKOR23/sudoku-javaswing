@@ -1,5 +1,6 @@
 package mvc.gui;
 
+import mvc.config_database.ConnectToDB;
 import mvc.gui.component.CustomTable;
 import mvc.gui.component.Label;
 import mvc.controller.main_controller.AchievementController;
@@ -15,12 +16,14 @@ import java.util.Vector;
 
 public class AchievementTable extends JFrame
 {
+    private final ConnectToDB connectToDB;
     private final JButton button;
     private final JTabbedPane tabbedPane;
 
-    public AchievementTable(String title, JButton button) throws HeadlessException
+    public AchievementTable(ConnectToDB connectToDB, String title, JButton button) throws HeadlessException
     {
         super(title);
+        this.connectToDB = connectToDB;
         this.button = button;
         this.tabbedPane = new JTabbedPane();
 
@@ -62,7 +65,7 @@ public class AchievementTable extends JFrame
 
     private void _createTable()
     {
-        AchievementController achievementController = new AchievementController();
+        AchievementController achievementController = new AchievementController(connectToDB);
 
         ResultSet resultSet = achievementController.getData();
 

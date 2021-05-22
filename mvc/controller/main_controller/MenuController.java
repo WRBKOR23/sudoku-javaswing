@@ -1,5 +1,6 @@
 package mvc.controller.main_controller;
 
+import mvc.config_database.ConnectToDB;
 import mvc.controller.thread.music.MusicController;
 import mvc.controller.thread.time.TimeController;
 import mvc.gui.AchievementTable;
@@ -96,6 +97,19 @@ public class MenuController
 
     public void achievement(JButton button)
     {
-        AchievementTable achievementTable = new AchievementTable("Achievement", button);
+        ConnectToDB connectToDB = new ConnectToDB();
+        if (connectToDB.getConnect() == null)
+        {
+            button.setEnabled(true);
+
+            String message = "Can not connect to server right now.\n"
+                             + "Please try again later.";
+            JOptionPane.showMessageDialog(new JFrame(), message, "Server Error!",
+                                          JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+        System.out.println(11);
+        AchievementTable achievementTable = new AchievementTable(connectToDB, "Achievement", button);
     }
 }

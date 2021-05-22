@@ -24,7 +24,6 @@ public class ConnectToDB
         }
         catch (ClassNotFoundException | SQLException ignored)
         {
-
         }
     }
 
