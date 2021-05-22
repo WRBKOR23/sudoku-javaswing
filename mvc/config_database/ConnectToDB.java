@@ -20,7 +20,7 @@ public class ConnectToDB
 
             String user     = Constants.InitConfiguration.DB_USER;
             String password = Constants.InitConfiguration.DB_PASS;
-            connect = DriverManager.getConnection(url+"da", user, password);
+            connect = DriverManager.getConnection(url, user, password);
         }
         catch (ClassNotFoundException | SQLException ignored)
         {
