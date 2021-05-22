@@ -219,10 +219,26 @@ public class NodeController
         {
             e.printStackTrace();
         }
+
         achievementModel.setTime(timeController.getTime());
 
-        AchievementController achievementController = new AchievementController(new ConnectToDB());
+        ConnectToDB connectToDB = new ConnectToDB();
+        if (connectToDB.getConnect() == null)
+        {
+            _showError();
+            return;
+        }
+
+        AchievementController achievementController = new AchievementController(connectToDB);
         achievementController.insert(achievementModel);
+    }
+
+    private void _showError()
+    {
+        String message = "Can not connect to server right now.\n"
+                         + "Your achievement will not be saved :(.";
+        JOptionPane.showMessageDialog(new JFrame(), message, "Server Error!",
+                                      JOptionPane.ERROR_MESSAGE);
     }
 
     class ValidateInput extends CustomKeyListener

@@ -37,9 +37,9 @@ public class PuzzleController
 
     private void setUpPuzzles()
     {
-        easyList      = getAllPuzzles("easy");
-        normalList    = getAllPuzzles("normal");
-        hardList      = getAllPuzzles("hard");
+        easyList = getAllPuzzles("easy");
+        normalList = getAllPuzzles("normal");
+        hardList = getAllPuzzles("hard");
         challengeList = getAllPuzzles("challenge");
     }
 
@@ -69,8 +69,7 @@ public class PuzzleController
                     return false;
                 }
 
-                input = easyList.get(0);
-                easyList.remove(0);
+                input = _getRandomPuzzle(easyList);
             }
 
             case "normal" -> {
@@ -79,8 +78,7 @@ public class PuzzleController
                     return false;
                 }
 
-                input = normalList.get(0);
-                normalList.remove(0);
+                input = _getRandomPuzzle(normalList);
             }
 
             case "hard" -> {
@@ -89,8 +87,7 @@ public class PuzzleController
                     return false;
                 }
 
-                input = hardList.get(0);
-                hardList.remove(0);
+                input = _getRandomPuzzle(hardList);
             }
 
             case "challenge" -> {
@@ -99,8 +96,7 @@ public class PuzzleController
                     return false;
                 }
 
-                input = challengeList.get(0);
-                challengeList.remove(0);
+                input = _getRandomPuzzle(challengeList);
             }
         }
 
@@ -109,6 +105,15 @@ public class PuzzleController
         validate.setPuzzleAnswer(this.nodeList);
 
         return true;
+    }
+
+    private String _getRandomPuzzle(ArrayList<String> arrayList)
+    {
+        int index = (int) (Math.random() * (arrayList.size() - 1));
+        String input = arrayList.get(index);
+        arrayList.remove(input);
+
+        return input;
     }
 
     private void parsePuzzle(String input)

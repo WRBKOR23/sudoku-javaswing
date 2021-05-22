@@ -101,15 +101,19 @@ public class MenuController
         if (connectToDB.getConnect() == null)
         {
             button.setEnabled(true);
-
-            String message = "Can not connect to server right now.\n"
-                             + "Please try again later.";
-            JOptionPane.showMessageDialog(new JFrame(), message, "Server Error!",
-                                          JOptionPane.ERROR_MESSAGE);
+            _showError();
 
             return;
         }
-        System.out.println(11);
+
         AchievementTable achievementTable = new AchievementTable(connectToDB, "Achievement", button);
+    }
+
+    private void _showError()
+    {
+        String message = "Can not connect to server right now.\n"
+                         + "Please try again later.";
+        JOptionPane.showMessageDialog(new JFrame(), message, "Server Error!",
+                                      JOptionPane.ERROR_MESSAGE);
     }
 }
