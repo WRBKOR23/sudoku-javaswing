@@ -13,8 +13,9 @@ public interface Constants
     public static final String ICON_IMAGE_FILE_LOCATION = "src/resources/icon_image/";
     public static final String DB_DRIVER = "DB_DRIVER";
     public static final String DB_TIME_ZONE = "DB_TIME_ZONE";
-    public static final String DB_NAME = "DB_NAME";
     public static final String DB_URL = "DB_URL";
+    public static final String DB_PORT = "DB_PORT";
+    public static final String DB_NAME = "DB_NAME";
     public static final String DB_USER = "DB_USER";
     public static final String DB_PASS = "DB_PASS";
 
@@ -25,7 +26,8 @@ public interface Constants
     {
 
         public static String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-        public static String DB_URL = "jdbc:mysql://localhost:3306/";
+        public static String DB_URL = "jdbc:mysql://localhost:";
+        public static String DB_PORT = "3306";
         public static String DB_TIME_ZONE = "serverTimezone=UTC";
         public static String DB_NAME = "temp";
         public static String DB_USER = "WRBKOR23";

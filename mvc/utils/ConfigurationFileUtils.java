@@ -38,7 +38,19 @@ public class ConfigurationFileUtils
                     }
                     else
                     {
-                        Constants.InitConfiguration.DB_URL = "jdbc:mysql://localhost:3306/";
+                        Constants.InitConfiguration.DB_URL = "jdbc:mysql://localhost:";
+                    }
+                }
+                if (line.startsWith(Constants.DB_PORT))
+                {
+                    String[] data = line.split("=");
+                    if (data.length == 2)
+                    {
+                        Constants.InitConfiguration.DB_PORT = data[1];
+                    }
+                    else
+                    {
+                        Constants.InitConfiguration.DB_PORT = "3306";
                     }
                 }
                 if (line.startsWith(Constants.DB_NAME))
