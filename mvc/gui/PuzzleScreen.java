@@ -23,7 +23,9 @@ public class PuzzleScreen extends JPanel
     public PuzzleScreen()
     {
         this.gameScreen = new JPanel();
-        this.waitScreen = new PanelWithImageBG(646, 646, "game");
+        this.waitScreen = new PanelWithImageBG(Constants.UIConfiguration.PUZZLE_SCREEN_WIDTH,
+                                               Constants.UIConfiguration.PUZZLE_SCREEN_HEIGHT,
+                                               "game");
 
         this.puzzleController = new PuzzleController();
         this.textFieldList    = new TextFields().getTextFieldList();

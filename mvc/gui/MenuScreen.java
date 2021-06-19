@@ -42,7 +42,9 @@ public class MenuScreen extends PanelWithImageBG
 
     public MenuScreen(Label clockLabel)
     {
-        super(310, 646, "menu1");
+        super(Constants.UIConfiguration.MENU_SCREEN_WIDTH,
+              Constants.UIConfiguration.MENU_SCREEN_HEIGHT,
+              "menu1");
 
         this.clockLabel = clockLabel;
 

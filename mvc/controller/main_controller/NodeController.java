@@ -14,25 +14,26 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class NodeController
 {
-    private final PuzzleScreen          puzzleScreen;
+    private final ConnectToDB connectToDB;
+    private final PuzzleScreen puzzleScreen;
     private final TimeController timeController;
-    private final AchievementModel      achievementModel;
+    private final AchievementModel achievementModel;
     private final PuzzleController puzzleController;
     private final ArrayList<JTextField> textFieldList;
 
     private boolean isStart = false;
-    private int     currPos;
+    private int currPos;
 
-    public NodeController(PuzzleScreen puzzleScreen, TimeController timeController, AchievementModel achievementModel)
+    public NodeController(ConnectToDB connectToDB, PuzzleScreen puzzleScreen, TimeController timeController, AchievementModel achievementModel)
     {
-        this.puzzleScreen     = puzzleScreen;
+        this.connectToDB = connectToDB;
+        this.puzzleScreen = puzzleScreen;
         this.puzzleController = puzzleScreen.getPuzzleSetUp();
-        this.textFieldList    = puzzleScreen.getTextFieldList();
-        this.timeController   = timeController;
+        this.textFieldList = puzzleScreen.getTextFieldList();
+        this.timeController = timeController;
         this.achievementModel = achievementModel;
 
         for (int i = 0; i < this.textFieldList.size(); i++)
@@ -108,7 +109,7 @@ public class NodeController
             resetInfo();
             setStart(true);
 
-            achievementModel.setMode(mode);
+            achievementModel.setModeID(mode);
             puzzleScreen.initGUI();
             puzzleScreen.switchScreen(false);
         }
@@ -142,7 +143,9 @@ public class NodeController
 
         char tempVal = puzzleController.getNodeList().get(currPos).getAnswer();
         puzzleController.getNodeList().get(currPos).setVal(tempVal);
+
         textFieldList.get(currPos).setText(String.valueOf(tempVal));
+        textFieldList.get(currPos).setEnabled(false);
 
         achievementModel.increaseCountHints(1);
 
@@ -212,28 +215,13 @@ public class NodeController
 
     private void _pushResultToDB()
     {
-        try
-        {
-            TimeUnit.MILLISECONDS.sleep(1000);
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
-        achievementModel.setTime(timeController.getTime());
-
-        ConnectToDB connectToDB = null;
-        try
-        {
-            connectToDB = new ConnectToDB();
-        }
-        catch (SQLException throwables)
+        if (connectToDB.getConnect() == null)
         {
             _showError();
             return;
         }
 
+        achievementModel.setTime(timeController.getTime());
         AchievementController achievementController = new AchievementController(connectToDB);
         achievementController.insert(achievementModel);
     }

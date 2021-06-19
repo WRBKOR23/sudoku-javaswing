@@ -26,7 +26,10 @@ public class AchievementTable extends JFrame
         this.connectToDB = connectToDB;
         this.button = button;
         this.tabbedPane = new JTabbedPane();
+    }
 
+    public void display()
+    {
         _createTable();
         _customTabPane();
 
@@ -98,25 +101,25 @@ public class AchievementTable extends JFrame
                 data.add(resultSet.getInt(4));
                 data.add(resultSet.getString(5));
 
-                if (data.get(1).equals("easy"))
+                if (data.get(1).equals("Easy"))
                 {
                     data.add(0, easyIndex);
                     easy.add(data);
                     easyIndex++;
                 }
-                if (data.get(1).equals("normal"))
+                if (data.get(1).equals("Normal"))
                 {
                     data.add(0, normalIndex);
                     normal.add(data);
                     normalIndex++;
                 }
-                if (data.get(1).equals("hard"))
+                if (data.get(1).equals("Hard"))
                 {
                     data.add(0, hardIndex);
                     hard.add(data);
                     hardIndex++;
                 }
-                if (data.get(1).equals("challenge"))
+                if (data.get(1).equals("Challenge"))
                 {
                     data.add(0, challengeIndex);
                     challenge.add(data);

@@ -71,15 +71,15 @@ public class CustomTable extends JTable
         comp.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,
                                                        Constants.UIConfiguration.LINE_BORDER_2));
         comp.setFont(new Font(Constants.UIConfiguration.FONT_1, Font.BOLD, 20));
-        if (value.equals("easy"))
+        if (value.equals("Easy"))
         {
             comp.setBackground(Constants.UIConfiguration.EASY_BUTTON_BG);
         }
-        else if (value.equals("normal"))
+        else if (value.equals("Normal"))
         {
             comp.setBackground(Constants.UIConfiguration.NORMAL_BUTTON_BG);
         }
-        else if (value.equals("hard"))
+        else if (value.equals("Hard"))
         {
             comp.setBackground(Constants.UIConfiguration.HARD_BUTTON_BG);
         }

@@ -19,17 +19,20 @@ public class AchievementController
         Connection connection = null;
         PreparedStatement statement = null;
 
-        StringBuilder sql = new StringBuilder("INSERT INTO Achievement_BTL_JAVA (Player_Name,");
-        sql.append(" Mode, Number_Of_Hints, Number_Of_Checks, Time)");
-        sql.append(" VALUES(?, ?, ?, ?, ?)");
-
+        String sql = "INSERT INTO " +
+                        "achievement " +
+                        "(" +
+                            "player_name, mode_id, num_of_hints, num_of_checks, time" +
+                        ") " +
+                     "VALUES " +
+                        "(?, ?, ?, ?, ?)";
         try
         {
             connection = connectToDB.getConnect();
             connection.setAutoCommit(false);
 
-            statement = connection.prepareStatement(sql.toString());
-            setParameter(statement, achievementModel.getPlayerName(), achievementModel.getMode(),
+            statement = connection.prepareStatement(sql);
+            setParameter(statement, achievementModel.getPlayerName(), achievementModel.getModeID(),
                          achievementModel.getCountHints(), achievementModel.getCountChecks(),
                          achievementModel.getTime());
 
@@ -80,7 +83,14 @@ public class AchievementController
         try
         {
             connection = connectToDB.getConnect();
-            String sql = "SELECT Player_Name, Mode, Number_Of_Hints, Number_Of_Checks, Time FROM Achievement_BTL_JAVA ORDER BY Time ASC";
+            String sql = "SELECT " +
+                            "player_name, mode_name, num_of_hints, num_of_checks, time " +
+                         "FROM " +
+                            "achievement a, mode m " +
+                         "WHERE " +
+                            "a.mode_id = m.mode_id " +
+                         "ORDER BY " +
+                            "time ASC";
 
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             result = statement.executeQuery(sql);

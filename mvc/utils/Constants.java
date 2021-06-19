@@ -36,6 +36,14 @@ public interface Constants
 
     public class UIConfiguration
     {
+        private static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+        public static int MENU_SCREEN_WIDTH = 310;
+        public static int MENU_SCREEN_HEIGHT = 646;
+        public static int PUZZLE_SCREEN_WIDTH = 646;
+        public static int PUZZLE_SCREEN_HEIGHT = 646;
+        public static int SCREEN_POSITION_X = (gd.getDisplayMode().getWidth() - (MENU_SCREEN_WIDTH + PUZZLE_SCREEN_WIDTH)) / 2;
+        public static int SCREEN_POSITION_Y = (gd.getDisplayMode().getHeight() - MENU_SCREEN_HEIGHT) / 2;
         public static Color BG_COLOR_1 = Color.decode("#fd5f92");
         public static Color BG_COLOR_2 = Color.decode("#0f81d8");
         public static Color BG_COLOR_3 = Color.white;

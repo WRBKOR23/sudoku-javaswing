@@ -11,11 +11,13 @@ import java.sql.SQLException;
 
 public class MenuController
 {
+    private final ConnectToDB connectToDB;
     private final TimeController timeController;
     private final MusicController musicController;
 
-    public MenuController(TimeController timeController, MusicController musicController)
+    public MenuController(ConnectToDB connectToDB, TimeController timeController, MusicController musicController)
     {
+        this.connectToDB = connectToDB;
         this.timeController = timeController;
         this.musicController = musicController;
     }
@@ -98,20 +100,15 @@ public class MenuController
 
     public void achievement(JButton button)
     {
-        ConnectToDB connectToDB = null;
-        try
-        {
-            connectToDB = new ConnectToDB();
-        }
-        catch (SQLException throwables)
+        if (connectToDB.getConnect() == null)
         {
             button.setEnabled(true);
             _showError();
-
             return;
         }
 
         AchievementTable achievementTable = new AchievementTable(connectToDB, "Achievement", button);
+        achievementTable.display();
     }
 
     private void _showError()

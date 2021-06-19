@@ -1,6 +1,8 @@
 package mvc.build;
 
+import mvc.config_database.ConnectToDB;
 import mvc.controller.main_controller.GameController;
+import mvc.controller.thread.DatabaseThread;
 import mvc.controller.thread.music.MusicController;
 import mvc.controller.thread.time.TimeController;
 import mvc.gui.custom_event.CustomActionListener;
@@ -9,6 +11,7 @@ import mvc.gui.custom_event.CustomWindowListener;
 import mvc.gui.MenuScreen;
 import mvc.gui.PuzzleScreen;
 import mvc.model.AchievementModel;
+import mvc.utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +35,10 @@ public class App extends JFrame
 
     public App() throws HeadlessException
     {
+        ConnectToDB connectToDB = new ConnectToDB();
+        DatabaseThread databaseThread = new DatabaseThread(connectToDB);
+        databaseThread.start();
+
         TimeController   timeController   = new TimeController();
         MusicController  musicController  = new MusicController();
         AchievementModel achievementModel = new AchievementModel();
@@ -39,7 +46,7 @@ public class App extends JFrame
         this.menuScreen   = new MenuScreen(timeController.getTimeThread().getClockLabel());
         this.puzzleScreen = new PuzzleScreen();
 
-        this.gameController = new GameController(this.puzzleScreen, timeController,
+        this.gameController = new GameController(this.puzzleScreen, timeController, connectToDB,
                                                  musicController, achievementModel);
 
         generateEvents();
@@ -120,13 +127,7 @@ public class App extends JFrame
         add(this.puzzleScreen, BorderLayout.CENTER);
         add(this.menuScreen, BorderLayout.EAST);
 
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
-        int posX = (width-950)/2;
-        int posY = (height-650)/2;
-
-        setLocation(posX, posY);
+        setLocation(Constants.UIConfiguration.SCREEN_POSITION_X, Constants.UIConfiguration.SCREEN_POSITION_Y);
         pack();
         setResizable(false);
         setVisible(true);

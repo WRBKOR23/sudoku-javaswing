@@ -2,25 +2,25 @@ package mvc.model;
 
 public class AchievementModel
 {
-    private String playerName, mode, time;
-    private int countHints, countChecks;
+    private String playerName, modeName, time;
+    private int countHints, countChecks, modeID;
 
     public AchievementModel()
     {
-        this.playerName  = "";
-        this.mode        = "";
-        this.countHints  = 0;
+        this.playerName = "";
+        this.modeName = "";
+        this.countHints = 0;
         this.countChecks = 0;
-        this.time        = "";
+        this.time = "";
     }
 
-    public AchievementModel(String playerName, String mode, int countHints, int countChecks, String time)
+    public AchievementModel(String playerName, String modeName, int countHints, int countChecks, String time)
     {
-        this.playerName  = playerName;
-        this.mode        = mode;
-        this.countHints  = countHints;
+        this.playerName = playerName;
+        this.modeName = modeName;
+        this.countHints = countHints;
         this.countChecks = countChecks;
-        this.time        = time;
+        this.time = time;
     }
 
     public String getPlayerName()
@@ -33,14 +33,14 @@ public class AchievementModel
         this.playerName = playerName;
     }
 
-    public String getMode()
+    public String getModeName()
     {
-        return mode;
+        return modeName;
     }
 
-    public void setMode(String mode)
+    public void setModeName(String modeName)
     {
-        this.mode = mode;
+        this.modeName = modeName;
     }
 
     public String getTime()
@@ -73,6 +73,22 @@ public class AchievementModel
         this.countChecks = countChecks;
     }
 
+    public int getModeID()
+    {
+        return modeID;
+    }
+
+    public void setModeID(String mode)
+    {
+        switch (mode)
+        {
+            case "easy" -> this.modeID = 1;
+            case "normal" -> this.modeID = 2;
+            case "hard" -> this.modeID = 3;
+            case "challenge" -> this.modeID = 4;
+        }
+    }
+
     public void increaseCountHints(int num)
     {
         countHints += num;
@@ -88,7 +104,7 @@ public class AchievementModel
     {
         return "AchievementModel{" +
                "playerName='" + playerName + '\'' +
-               ", nameMode='" + mode + '\'' +
+               ", nameMode='" + modeName + '\'' +
                ", countHints='" + countHints + '\'' +
                ", countChecks='" + countChecks + '\'' +
                ", time=" + time +
