@@ -127,7 +127,8 @@ public class App extends JFrame
         add(this.puzzleScreen, BorderLayout.CENTER);
         add(this.menuScreen, BorderLayout.EAST);
 
-        setLocation(Constants.UIConfiguration.SCREEN_POSITION_X, Constants.UIConfiguration.SCREEN_POSITION_Y);
+        setLocation(Constants.UIConfiguration.GAME_SCREEN_POSITION_X,
+                    Constants.UIConfiguration.GAME_SCREEN_POSITION_Y);
         pack();
         setResizable(false);
         setVisible(true);

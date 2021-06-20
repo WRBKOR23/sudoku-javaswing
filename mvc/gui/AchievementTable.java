@@ -39,7 +39,9 @@ public class AchievementTable extends JFrame
         addWindowListener(new ChangeAchievementBtStatus());
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+        setLocation(Constants.UIConfiguration.ACHIEVEMENT_SCREEN_POSITION_X,
+                    Constants.UIConfiguration.ACHIEVEMENT_SCREEN_POSITION_Y);
         setSize(900, 500);
         setResizable(false);
         setVisible(true);
