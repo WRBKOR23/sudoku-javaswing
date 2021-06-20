@@ -25,7 +25,7 @@ public class ConnectToDB
         }
         catch (ClassNotFoundException e)
         {
-            e.printStackTrace();
+            System.out.println("Can not found driver!");
         }
 
         this.url = Constants.InitConfiguration.DB_URL;

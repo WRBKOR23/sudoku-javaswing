@@ -1,6 +1,7 @@
 package mvc.controller.main_controller;
 
 import mvc.config_database.ConnectToDB;
+import mvc.controller.thread.DatabaseThread;
 import mvc.controller.thread.time.TimeController;
 import mvc.gui.custom_event.CustomFocusListener;
 import mvc.gui.custom_event.CustomKeyListener;
@@ -194,7 +195,7 @@ public class NodeController
             return;
         }
 
-        if (checkAll())
+        if (!checkAll())
         {
             resetCurrentPosition();
             setStatusJTextFields(false);
@@ -217,19 +218,33 @@ public class NodeController
     {
         if (connectToDB.getConnect() == null)
         {
+            DatabaseThread databaseThread = new DatabaseThread(connectToDB);
+            databaseThread.start();
+
             _showError();
             return;
         }
 
         achievementModel.setTime(timeController.getTime());
         AchievementController achievementController = new AchievementController(connectToDB);
-        achievementController.insert(achievementModel);
+        try
+        {
+            achievementController.insert(achievementModel);
+        }
+        catch (SQLException exception)
+        {
+            DatabaseThread databaseThread = new DatabaseThread(connectToDB);
+            databaseThread.start();
+
+            _showError();
+        }
     }
 
     private void _showError()
     {
         String message = "Can not connect to server right now.\n"
-                         + "Your achievement will not be saved :(.";
+                         + "Your achievement will not be saved :(.\n"
+                         + "Please, try again after 5-10s";
         JOptionPane.showMessageDialog(new JFrame(), message, "Server Error!",
                                       JOptionPane.ERROR_MESSAGE);
     }

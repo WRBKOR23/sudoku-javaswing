@@ -13,7 +13,7 @@ import java.awt.*;
 public class MenuScreen extends PanelWithImageBG
 {
     // player name field
-    private TextField         playerNameField;
+    private TextField playerNameField;
     // confirm button
     private ButtonWithColorBG confirmBt;
 
@@ -125,14 +125,14 @@ public class MenuScreen extends PanelWithImageBG
         confirmBt = new ButtonWithColorBG("CONFIRM", 100, 40, 18,
                                           Constants.UIConfiguration.BG_COLOR_1, Constants.UIConfiguration.FG_GROUND_2);
 
-        hintBt   = new ButtonWithImageBG("hint", false, 40, 40);
-        checkBt  = new ButtonWithImageBG("check", false, 40, 40);
-        musicBt  = new ButtonWithImageBG("music", false, 40, 40);
-        introBt  = new ButtonWithImageBG("introductions", false, 40, 40);
+        hintBt = new ButtonWithImageBG("hint", false, 40, 40);
+        checkBt = new ButtonWithImageBG("check", false, 40, 40);
+        musicBt = new ButtonWithImageBG("music", false, 40, 40);
+        introBt = new ButtonWithImageBG("introductions", false, 40, 40);
         achievBt = new ButtonWithImageBG("achievement", false, 40, 40);
 
         resumeBt = new ButtonWithImageBG("resume", true, 50, 50);
-        pauseBt  = new ButtonWithImageBG("pause", true, 50, 50);
+        pauseBt = new ButtonWithImageBG("pause", true, 50, 50);
 
         easyModeBt = new ButtonWithColorBG("Easy", 130, 50, 18,
                                            Constants.UIConfiguration.EASY_BUTTON_BG, Constants.UIConfiguration.FG_GROUND_3);

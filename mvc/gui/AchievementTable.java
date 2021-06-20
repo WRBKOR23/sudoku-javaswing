@@ -28,7 +28,7 @@ public class AchievementTable extends JFrame
         this.tabbedPane = new JTabbedPane();
     }
 
-    public void display()
+    public void display() throws SQLException
     {
         _createTable();
         _customTabPane();
@@ -66,7 +66,7 @@ public class AchievementTable extends JFrame
         return titlePanel;
     }
 
-    private void _createTable()
+    private void _createTable() throws SQLException
     {
         AchievementController achievementController = new AchievementController(connectToDB);
 
@@ -90,52 +90,47 @@ public class AchievementTable extends JFrame
         tableHeader.add("Checks");
         tableHeader.add("Time");
 
-        try
+        while (resultSet.next())
         {
-            while (resultSet.next())
-            {
-                Vector<Object> data = new Vector<>();
-                data.add(resultSet.getString(1));
-                data.add(resultSet.getString(2));
-                data.add(resultSet.getInt(3));
-                data.add(resultSet.getInt(4));
-                data.add(resultSet.getString(5));
+            Vector<Object> data = new Vector<>();
+            data.add(resultSet.getString(1));
+            data.add(resultSet.getString(2));
+            data.add(resultSet.getInt(3));
+            data.add(resultSet.getInt(4));
+            data.add(resultSet.getString(5));
 
-                if (data.get(1).equals("Easy"))
-                {
-                    data.add(0, easyIndex);
-                    easy.add(data);
-                    easyIndex++;
-                }
-                if (data.get(1).equals("Normal"))
-                {
-                    data.add(0, normalIndex);
-                    normal.add(data);
-                    normalIndex++;
-                }
-                if (data.get(1).equals("Hard"))
-                {
-                    data.add(0, hardIndex);
-                    hard.add(data);
-                    hardIndex++;
-                }
-                if (data.get(1).equals("Challenge"))
-                {
-                    data.add(0, challengeIndex);
-                    challenge.add(data);
-                    challengeIndex++;
-                }
+            if (data.get(1).equals("Easy"))
+            {
+                data.add(0, easyIndex);
+                easy.add(data);
+                easyIndex++;
             }
-        }
-        catch (SQLException ex)
-        {
-            ex.printStackTrace();
+            if (data.get(1).equals("Normal"))
+            {
+                data.add(0, normalIndex);
+                normal.add(data);
+                normalIndex++;
+            }
+            if (data.get(1).equals("Hard"))
+            {
+                data.add(0, hardIndex);
+                hard.add(data);
+                hardIndex++;
+            }
+            if (data.get(1).equals("Challenge"))
+            {
+                data.add(0, challengeIndex);
+                challenge.add(data);
+                challengeIndex++;
+            }
         }
 
         this.tabbedPane.add("Easy", new JScrollPane(new CustomTable(easy, tableHeader)));
         this.tabbedPane.add("Normal", new JScrollPane(new CustomTable(normal, tableHeader)));
         this.tabbedPane.add("Hard", new JScrollPane(new CustomTable(hard, tableHeader)));
         this.tabbedPane.add("Challenge", new JScrollPane(new CustomTable(challenge, tableHeader)));
+
+        resultSet.close();
     }
 
 

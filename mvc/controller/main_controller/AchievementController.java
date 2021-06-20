@@ -14,18 +14,18 @@ public class AchievementController
         this.connectToDB = connectToDB;
     }
 
-    public void insert(AchievementModel achievementModel)
+    public void insert(AchievementModel achievementModel) throws SQLException
     {
         Connection connection = null;
         PreparedStatement statement = null;
 
         String sql = "INSERT INTO " +
-                        "achievement " +
-                        "(" +
-                            "player_name, mode_id, num_of_hints, num_of_checks, time" +
-                        ") " +
+                     "achievement " +
+                     "(" +
+                     "player_name, mode_id, num_of_hints, num_of_checks, time" +
+                     ") " +
                      "VALUES " +
-                        "(?, ?, ?, ?, ?)";
+                     "(?, ?, ?, ?, ?)";
         try
         {
             connection = connectToDB.getConnect();
@@ -39,99 +39,68 @@ public class AchievementController
             statement.executeUpdate();
             connection.commit();
         }
-        catch (SQLException e)
+        catch (SQLException exception)
         {
-            e.printStackTrace();
             if (connection != null)
             {
-                try
-                {
-                    connection.rollback();
-                }
-                catch (SQLException e1)
-                {
-                    e1.printStackTrace();
-                }
+                connection.rollback();
             }
+
+            throw exception;
         }
         finally
         {
-            try
+            if (statement != null)
             {
-                if (connection != null)
-                {
-                    connection.close();
-                }
-                if (statement != null)
-                {
-                    statement.close();
-                }
-            }
-            catch (SQLException e2)
-            {
-                e2.printStackTrace();
+                statement.close();
             }
         }
     }
 
-    public ResultSet getData()
+    public ResultSet getData() throws SQLException
     {
         Connection connection = null;
         Statement statement = null;
         ResultSet result = null;
 
-        try
-        {
-            connection = connectToDB.getConnect();
-            String sql = "SELECT " +
-                            "player_name, mode_name, num_of_hints, num_of_checks, time " +
-                         "FROM " +
-                            "achievement a, mode m " +
-                         "WHERE " +
-                            "a.mode_id = m.mode_id " +
-                         "ORDER BY " +
-                            "time ASC";
+        connection = connectToDB.getConnect();
+        String sql = "SELECT " +
+                     "player_name, mode_name, num_of_hints, num_of_checks, time " +
+                     "FROM " +
+                     "achievement a, mode m " +
+                     "WHERE " +
+                     "a.mode_id = m.mode_id " +
+                     "ORDER BY " +
+                     "time ASC";
 
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            result = statement.executeQuery(sql);
+        statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        result = statement.executeQuery(sql);
 
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
         return result;
     }
 
-    private void setParameter(PreparedStatement statement, Object... parameters)
+    private void setParameter(PreparedStatement statement, Object... parameters) throws SQLException
     {
-        try
+        for (int i = 0; i < parameters.length; i++)
         {
-            for (int i = 0; i < parameters.length; i++)
+            Object parameter = parameters[i];
+            int index = i + 1;
+            if (parameter instanceof Long)
             {
-                Object parameter = parameters[i];
-                int index = i + 1;
-                if (parameter instanceof Long)
-                {
-                    statement.setLong(index, (Long) parameter);
-                }
-                else if (parameter instanceof String)
-                {
-                    statement.setString(index, (String) parameter);
-                }
-                else if (parameter instanceof Integer)
-                {
-                    statement.setInt(index, (Integer) parameter);
-                }
-                else if (parameter instanceof Timestamp)
-                {
-                    statement.setTimestamp(index, (Timestamp) parameter);
-                }
+                statement.setLong(index, (Long) parameter);
             }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
+            else if (parameter instanceof String)
+            {
+                statement.setString(index, (String) parameter);
+            }
+            else if (parameter instanceof Integer)
+            {
+                statement.setInt(index, (Integer) parameter);
+            }
+            else if (parameter instanceof Timestamp)
+            {
+                statement.setTimestamp(index, (Timestamp) parameter);
+            }
         }
     }
 }

@@ -24,7 +24,6 @@ public class GameController
     {
         if (playerName.equals(""))
         {
-            System.out.println();
             return false;
         }
 

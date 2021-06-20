@@ -40,7 +40,7 @@ public class MusicThread extends Thread
     public synchronized void run()
     {
         MP3Player mp3 = new MP3Player();
-        for (int i = 1; i < 13; i++)
+        for (int i = 1; i < 8; i++)
         {
             mp3.addToPlayList(new File(Constants.MUSIC_FILE_LOCATION + i + ".mp3"));
         }

@@ -15,7 +15,8 @@ public class TestApp
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println("Can not read config file!!");
+            System.exit(-1);
         }
 
         App app = new App();

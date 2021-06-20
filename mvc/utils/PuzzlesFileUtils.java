@@ -21,13 +21,13 @@ public class PuzzlesFileUtils
      */
     public static ArrayList<String> readPuzzles(String mode)
     {
-        String            fileName = correctFileName(mode);
-        ArrayList<String> list     = new ArrayList<>();
+        String fileName = correctFileName(mode);
+        ArrayList<String> list = new ArrayList<>();
 
         try
         {
-            File    file = new File(Constants.PUZZLE_FILE_LOCATION + fileName);
-            Scanner sc   = new Scanner(file);
+            File file = new File(Constants.PUZZLE_FILE_LOCATION + fileName);
+            Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine())
             {
@@ -37,8 +37,7 @@ public class PuzzlesFileUtils
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-
+            System.out.println("Can not read puzzle file");
         }
         finally
         {
