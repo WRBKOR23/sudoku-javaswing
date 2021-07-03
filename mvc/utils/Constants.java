@@ -7,22 +7,22 @@ public interface Constants
     /*
      * Configuration variable.
      */
-    public static final String INIT_FILE = "src/config.ini";
-    public static final String PUZZLE_FILE_LOCATION = "src/resources/puzzles/";
-    public static final String MUSIC_FILE_LOCATION = "src/resources/music/";
-    public static final String ICON_IMAGE_FILE_LOCATION = "src/resources/icon_image/";
-    public static final String DB_DRIVER = "DB_DRIVER";
-    public static final String DB_TIME_ZONE = "DB_TIME_ZONE";
-    public static final String DB_URL = "DB_URL";
-    public static final String DB_PORT = "DB_PORT";
-    public static final String DB_NAME = "DB_NAME";
-    public static final String DB_USER = "DB_USER";
-    public static final String DB_PASS = "DB_PASS";
+    String INIT_FILE = "src/config.ini";
+    String PUZZLE_FILE_LOCATION = "src/resources/puzzles/";
+    String MUSIC_FILE_LOCATION = "src/resources/music/";
+    String ICON_IMAGE_FILE_LOCATION = "src/resources/icon_image/";
+    String DB_DRIVER = "DB_DRIVER";
+    String DB_TIME_ZONE = "DB_TIME_ZONE";
+    String DB_URL = "DB_URL";
+    String DB_PORT = "DB_PORT";
+    String DB_NAME = "DB_NAME";
+    String DB_USER = "DB_USER";
+    String DB_PASS = "DB_PASS";
 
     /*
      * Default value in game
      */
-    public class InitConfiguration
+    class InitConfiguration
     {
 
         public static String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -34,9 +34,9 @@ public interface Constants
         public static String DB_PASS = "hai210501";
     }
 
-    public class UIConfiguration
+    class UIConfiguration
     {
-        private static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        private static final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
         public static int MENU_SCREEN_WIDTH = 310;
         public static int MENU_SCREEN_HEIGHT = 646;
@@ -62,7 +62,6 @@ public interface Constants
         public static Color LINE_BORDER_2 = Color.white;
         public static Color LINE_BORDER_3 = Color.decode("#ff33cc");
         public static String FONT_1 = "arial";
-
     }
 
 

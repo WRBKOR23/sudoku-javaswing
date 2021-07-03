@@ -44,8 +44,8 @@ public class MenuController
     public void createNewGameFailed()
     {
         JOptionPane.showMessageDialog(null,
-                                      "Bạn đã chơi hết các câu đố ở chế độ này\n" +
-                                      "Vui lòng chọn chế độ khác để tiếp tục chơi!",
+                                      "Your have played all the puzzles in this mode!\n" +
+                                      "Please choose others mode to continue!",
                                       "",
                                       JOptionPane.INFORMATION_MESSAGE);
     }

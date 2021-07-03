@@ -152,12 +152,7 @@ public class MenuScreen extends PanelWithImageBG
 
     public void waitScreen()
     {
-        removeAll();
-        revalidate();
-        repaint();
-
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         add(createPanelWaitScreen());
     }
 
@@ -329,7 +324,6 @@ public class MenuScreen extends PanelWithImageBG
         musicBt.setIconImage(buttonName, 40, 40);
     }
 
-
     public void createNewGame(String mode)
     {
         clockLabel.setText("00:00:00");
@@ -352,6 +346,4 @@ public class MenuScreen extends PanelWithImageBG
             }
         }
     }
-
-
 }

@@ -195,7 +195,7 @@ public class NodeController
             return;
         }
 
-        if (!checkAll())
+        if (checkAll())
         {
             resetCurrentPosition();
             setStatusJTextFields(false);
@@ -203,10 +203,9 @@ public class NodeController
 
             timeController.pause();
 
-
             JOptionPane.showMessageDialog(null,
-                                          "Bạn đã hoàn thành phần chơi!\n" +
-                                          "Hãy chọn game mới để tiếp tục chơi",
+                                          "You have completed the puzzle!\n" +
+                                          "Start a new game to continue",
                                           "",
                                           JOptionPane.INFORMATION_MESSAGE);
 
@@ -220,8 +219,8 @@ public class NodeController
         {
             DatabaseThread databaseThread = new DatabaseThread(connectToDB);
             databaseThread.start();
-
             _showError();
+
             return;
         }
 
@@ -235,7 +234,6 @@ public class NodeController
         {
             DatabaseThread databaseThread = new DatabaseThread(connectToDB);
             databaseThread.start();
-
             _showError();
         }
     }

@@ -1,24 +1,19 @@
 package mvc.utils;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PuzzlesFileUtils
 {
-    /*
-     * Correct the file name
-     */
     public static String correctFileName(String mode)
     {
-        String fileName = mode + "_mode.txt";
+        String fileName = mode + "_modee.txt";
 
         return fileName;
     }
 
-    /*
-     * Load game from file
-     */
     public static ArrayList<String> readPuzzles(String mode)
     {
         String fileName = correctFileName(mode);
@@ -37,11 +32,14 @@ public class PuzzlesFileUtils
         }
         catch (IOException e)
         {
-            System.out.println("Can not read puzzle file");
+            JOptionPane.showMessageDialog(null,
+                                          "Can not read puzzle files!\n" +
+                                          "Game stopped without user's permission!!!!",
+                                          "",
+                                          JOptionPane.ERROR_MESSAGE);
+            System.exit(-1);
         }
-        finally
-        {
-            return list;
-        }
+
+        return list;
     }
 }

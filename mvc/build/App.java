@@ -129,6 +129,7 @@ public class App extends JFrame
 
         setLocation(Constants.UIConfiguration.GAME_SCREEN_POSITION_X,
                     Constants.UIConfiguration.GAME_SCREEN_POSITION_Y);
+
         pack();
         setResizable(false);
         setVisible(true);

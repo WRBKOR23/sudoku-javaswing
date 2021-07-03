@@ -124,8 +124,6 @@ public class PuzzleController
         {
             for (int k = 0; k < 9; k++)
             {
-                nodeList.get(i).setRow(j);
-                nodeList.get(i).setCol(k);
                 nodeList.get(i).setVal(input.charAt(i));
                 nodeList.get(i).setImmutable(nodeList.get(i).getVal() != ' ');
                 i++;
