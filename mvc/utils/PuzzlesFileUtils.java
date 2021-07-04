@@ -9,7 +9,7 @@ public class PuzzlesFileUtils
 {
     public static String correctFileName(String mode)
     {
-        String fileName = mode + "_modee.txt";
+        String fileName = mode + "_mode.txt";
 
         return fileName;
     }
